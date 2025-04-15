@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Empresa {
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  areas   Area[]
+}
+
+model Cuenca {
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  areas   Area[]
+}
+
+model Area {
+  id        Int     @id @default(autoincrement())
+  nombre    String
+  cuenca    Cuenca  @relation(fields: [cuencaId], references: [id])
+  cuencaId  Int
+  empresa   Empresa @relation(fields: [empresaId], references: [id])
+  empresaId Int
+  yacimientos Yacimiento[]
+  @@index([cuencaId])  // Índice para buscar rápido áreas por cuenca
+  @@index([empresaId]) // Índice para buscar rápido áreas por empresa
+}
+
+model Yacimiento {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  area     Area    @relation(fields: [areaId], references: [id])
+  areaId   Int
+  pozos    Pozo[]
+  @@index([areaId])  // Índice para filtrar yacimientos por área
+}
+
+model Pozo {
+  id               Int     @id @default(autoincrement())
+  nombre           String
+  yacimiento       Yacimiento @relation(fields: [yacimientoId], references: [id])
+  yacimientoId     Int
+  latitud          Float
+  longitud         Float
+  cota             Int?
+  profundidad      Int?
+  estado           EstadoPozo @relation(fields: [estadoId], references: [id])
+  estadoId         Int
+  tipo             TipoPozo @relation(fields: [tipoId], references: [id])
+  tipoId           Int
+  clasificacion    ClasificacionPozo @relation(fields: [clasificacionId], references: [id])
+  clasificacionId  Int
+  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+  tipoRecursoId    Int
+  sistemaExtraccion String?
+  vidaUtil         Int?
+  observaciones    String?
+  formaciones      FormacionProductiva[]
+  produccionMensual ProduccionMensual[]
+  @@index([yacimientoId])  // Índice para buscar pozos por yacimiento
+  @@index([latitud, longitud]) // Índice para búsquedas por ubicación
+}
+
+model FormacionProductiva {
+  id      Int   @id @default(autoincrement())
+  nombre  String
+  pozo    Pozo  @relation(fields: [pozoId], references: [id])
+  pozoId  Int
+}
+
+model ProduccionMensual {
+  id                 Int     @id @default(autoincrement())
+  pozo               Pozo    @relation(fields: [pozoId], references: [id])
+  pozoId             Int
+  mes                Int
+  anio               Int
+  produccionPetroleo Float
+  produccionGas      Float
+  produccionAgua     Float
+  inyeccionAgua      Float
+  inyeccionGas       Float
+  inyeccionCO2       Float
+  inyeccionOtros     Float
+  relacionGasPetroleo Float
+  porcentajeAgua     Float
+  tiempoEfectivo     Float
+  @@index([pozoId])  // Índice para buscar producción por pozo
+  @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
+}
+
+model EstadoPozo {
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  pozos   Pozo[]
+}
+
+model TipoPozo {
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  pozos   Pozo[]
+}
+
+model ClasificacionPozo {
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  pozos   Pozo[]
+}
+
+model TipoRecurso {
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  pozos   Pozo[]
+}

@@ -42,13 +42,14 @@ model Yacimiento {
 
 model Pozo {
   id               Int     @id @default(autoincrement())
-  nombre           String
+  sigla          String  
+  nombre           String //nombre propio
   yacimiento       Yacimiento @relation(fields: [yacimientoId], references: [id])
   yacimientoId     Int
   latitud          Float
   longitud         Float
-  cota             Int?
-  profundidad      Int?
+  cota             Float?
+  profundidad      Float?
   estado           EstadoPozo @relation(fields: [estadoId], references: [id])
   estadoId         Int
   tipo             TipoPozo @relation(fields: [tipoId], references: [id])
@@ -57,8 +58,10 @@ model Pozo {
   clasificacionId  Int
   tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
   tipoRecursoId    Int
-  sistemaExtraccion String?
-  vidaUtil         Int?
+  sistemaExtraccion SistemaExtraccion @relation(fields: [sistemaExtraccionId], references: [id])
+  sistemaExtraccionId Int
+  tiempoEfectivo   Float?
+  vidaUtil         Float?
   observaciones    String?
   formaciones      FormacionProductiva[]
   produccionMensual ProduccionMensual[]
@@ -79,18 +82,24 @@ model ProduccionMensual {
   pozoId             Int
   mes                Int
   anio               Int
-  produccionPetroleo Float
-  produccionGas      Float
-  produccionAgua     Float
-  inyeccionAgua      Float
-  inyeccionGas       Float
-  inyeccionCO2       Float
-  inyeccionOtros     Float
-  relacionGasPetroleo Float
-  porcentajeAgua     Float
-  tiempoEfectivo     Float
+  produccionPetroleo Float?
+  produccionGas      Float?
+  produccionAgua     Float?
+  inyeccionAgua      Float?
+  inyeccionGas       Float?
+  inyeccionCO2       Float?
+  inyeccionOtros     Float?
+  relacionGasPetroleo Float?
+  porcentajeAgua     Float?
+  
   @@index([pozoId])  // Índice para buscar producción por pozo
   @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
+}
+
+model SistemaExtraccion{
+  id      Int     @id @default(autoincrement())
+  nombre  String  @unique
+  pozos   Pozo[]
 }
 
 model EstadoPozo {
@@ -107,12 +116,16 @@ model TipoPozo {
 
 model ClasificacionPozo {
   id      Int     @id @default(autoincrement())
-  nombre  String  @unique
+  clasificacion  String  @unique
+  subClasificacion String?
   pozos   Pozo[]
 }
 
 model TipoRecurso {
   id      Int     @id @default(autoincrement())
-  nombre  String  @unique
+  tipo  String  @unique
+  subTipo String?
   pozos   Pozo[]
 }
+
+

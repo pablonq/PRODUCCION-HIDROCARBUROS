@@ -9,31 +9,38 @@ datasource db {
 
 model Empresa {
   id      Int     @id @default(autoincrement())
-  nombre  String  @unique
+  nombreEmpresa  String  @unique
+  comentario String?
   areas   Area[]
-}
-
-model Cuenca {
-  id      Int     @id @default(autoincrement())
-  nombre  String  @unique
-  areas   Area[]
+  producciones ProduccionMensual[]
 }
 
 model Area {
   id        Int     @id @default(autoincrement())
-  nombre    String
+  nombreArea    String
   cuenca    Cuenca  @relation(fields: [cuencaId], references: [id])
   cuencaId  Int
   empresa   Empresa @relation(fields: [empresaId], references: [id])
   empresaId Int
   yacimientos Yacimiento[]
+  comentario String?
   @@index([cuencaId])  // Índice para buscar rápido áreas por cuenca
   @@index([empresaId]) // Índice para buscar rápido áreas por empresa
 }
 
+
+
+model Cuenca {
+  id            Int     @id @default(autoincrement())
+  nombreCuenca  String
+  comentario    String?
+  areas         Area[]
+}
+
+
 model Yacimiento {
   id       Int     @id @default(autoincrement())
-  nombre   String
+  nombreYacimiento   String
   area     Area    @relation(fields: [areaId], references: [id])
   areaId   Int
   pozos    Pozo[]
@@ -43,43 +50,52 @@ model Yacimiento {
 model Pozo {
   id               Int     @id @default(autoincrement())
   sigla          String  
-  nombre           String //nombre propio
-  yacimiento       Yacimiento @relation(fields: [yacimientoId], references: [id])
-  yacimientoId     Int
-  latitud          Float
-  longitud         Float
+  nombrePozo           String //nombre propio
+  latitud          Float?
+  longitud         Float?
   cota             Float?
   profundidad      Float?
-  estado           EstadoPozo @relation(fields: [estadoId], references: [id])
-  estadoId         Int
-  tipo             TipoPozo @relation(fields: [tipoId], references: [id])
-  tipoId           Int
-  clasificacion    ClasificacionPozo @relation(fields: [clasificacionId], references: [id])
-  clasificacionId  Int
-  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
-  tipoRecursoId    Int
-  sistemaExtraccion SistemaExtraccion @relation(fields: [sistemaExtraccionId], references: [id])
-  sistemaExtraccionId Int
   tiempoEfectivo   Float?
   vidaUtil         Float?
   observaciones    String?
-  formaciones      FormacionProductiva[]
+  estadoPozoId         Int
+  tipoPozoId           Int
+  clasificacionPozoId  Int
+  tipoRecursoId    Int
+  sistemaExtraccionId Int
+  yacimientoId     Int
+  estado           EstadoPozo @relation(fields: [estadoPozoId], references: [id])
+  tipo             TipoPozo @relation(fields: [tipoPozoId], references: [id])
+  clasificacion    ClasificacionPozo @relation(fields: [clasificacionPozoId], references: [id])
+  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+  sistemaExtraccion SistemaExtraccion @relation(fields: [sistemaExtraccionId], references: [id])
+  yacimiento       Yacimiento @relation(fields: [yacimientoId], references: [id])
+  formacionesProductivas PozoFormacion[]
   produccionMensual ProduccionMensual[]
   @@index([yacimientoId])  // Índice para buscar pozos por yacimiento
   @@index([latitud, longitud]) // Índice para búsquedas por ubicación
+  @@index([sistemaExtraccionId]) // Índice para buscar pozos por estado
+  @@index([tipoRecursoId]) // Índice para buscar pozos por tipo de recurso
+  @@index([tipoPozoId])
+}
+
+model PozoFormacion{
+  id Int @id @default(autoincrement())
+  pozoId Int
+  formacionId Int
+  pozo Pozo @relation(fields: [pozoId], references: [id])
+  formacion FormacionProductiva @relation(fields: [formacionId], references: [id])
 }
 
 model FormacionProductiva {
   id      Int   @id @default(autoincrement())
-  nombre  String
-  pozo    Pozo  @relation(fields: [pozoId], references: [id])
-  pozoId  Int
+  nombreFormacion  String
+  comentario String?
+  pozo PozoFormacion[]
 }
 
 model ProduccionMensual {
   id                 Int     @id @default(autoincrement())
-  pozo               Pozo    @relation(fields: [pozoId], references: [id])
-  pozoId             Int
   mes                Int
   anio               Int
   produccionPetroleo Float?
@@ -91,40 +107,50 @@ model ProduccionMensual {
   inyeccionOtros     Float?
   relacionGasPetroleo Float?
   porcentajeAgua     Float?
+  pozoId             Int
+  pozo               Pozo    @relation(fields: [pozoId], references: [id])
+  empresaId          Int
+  empresa            Empresa @relation(fields: [empresaId], references: [id])
   
   @@index([pozoId])  // Índice para buscar producción por pozo
   @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
+  @@index([empresaId]) // Índice para buscar producción por empresa
 }
 
-model SistemaExtraccion{
+model SistemaExtraccion {
   id      Int     @id @default(autoincrement())
-  nombre  String  @unique
+  nombreSistema  String  @unique
+  comentario String?
   pozos   Pozo[]
 }
 
 model EstadoPozo {
   id      Int     @id @default(autoincrement())
-  nombre  String  @unique
+  nombreEstado  String  @unique
+  comentario String?
   pozos   Pozo[]
 }
 
 model TipoPozo {
   id      Int     @id @default(autoincrement())
-  nombre  String  @unique
+  tipoPozo  String  @unique
+  comentario String?
   pozos   Pozo[]
 }
 
 model ClasificacionPozo {
   id      Int     @id @default(autoincrement())
-  clasificacion  String  @unique
-  subClasificacion String?
+  clasificacionPozo  String  @unique
+  subClasificacionPozo String?
+  comentario String?
   pozos   Pozo[]
 }
 
 model TipoRecurso {
   id      Int     @id @default(autoincrement())
-  tipo  String  @unique
-  subTipo String?
+  tipoRecurso  String  @unique
+  subTipoRecurso String?
+  comentario String?
   pozos   Pozo[]
 }
 

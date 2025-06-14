@@ -174,9 +174,3 @@ CREATE UNIQUE INDEX "EstadoPozo_nombreEstado_key" ON "EstadoPozo"("nombreEstado"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "TipoPozo_tipoPozo_key" ON "TipoPozo"("tipoPozo");
-
--- CreateIndex
-CREATE UNIQUE INDEX "ClasificacionPozo_clasificacionPozo_key" ON "ClasificacionPozo"("clasificacionPozo");
-
--- CreateIndex
-CREATE UNIQUE INDEX "TipoRecurso_tipoRecurso_key" ON "TipoRecurso"("tipoRecurso");

@@ -140,7 +140,7 @@ model TipoPozo {
 
 model ClasificacionPozo {
   id      Int     @id @default(autoincrement())
-  clasificacionPozo  String  @unique
+  clasificacionPozo  String  
   subClasificacionPozo String?
   comentario String?
   pozos   Pozo[]
@@ -148,7 +148,7 @@ model ClasificacionPozo {
 
 model TipoRecurso {
   id      Int     @id @default(autoincrement())
-  tipoRecurso  String  @unique
+  tipoRecurso  String  
   subTipoRecurso String?
   comentario String?
   pozos   Pozo[]

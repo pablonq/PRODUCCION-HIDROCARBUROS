@@ -511,6 +511,72 @@ await prisma.pozo.createMany({
   ]
   });
 
+  await prisma.produccionAnualEmpresa.createMany({
+    data: [
+      {
+        anio: 2009,
+        produccionPetroleo: 300,
+        produccionGas: 0,
+        empresaId: empresa.id,
+        cuencaId: cuenca.id,
+      },
+      {
+        anio: 2010,
+        produccionPetroleo: 509.13,
+        produccionGas: 15.06,
+        empresaId: empresa.id,
+        cuencaId: cuenca.id,
+      },
+      {
+        anio: 2011,
+        produccionPetroleo: 2699.51,
+        produccionGas: 184.69,
+        empresaId: empresa.id,
+        cuencaId: cuenca.id,
+      },
+      {
+        anio: 2012,
+        produccionPetroleo: 357.23,
+        produccionGas: 42.82,
+        empresaId: empresa.id,
+        cuencaId: cuenca.id,
+      },
+    ],
+  });
+
+  await prisma.produccionAnualRecurso.createMany({
+    data: [
+      {
+        anio: 2009,
+        produccionPetroleo: 300,
+        produccionGas: 0,
+        tipoRecursoId: 1,
+        cuencaId: cuenca.id,
+      },
+      {
+        anio: 2010,
+        produccionPetroleo: 509.13,
+        produccionGas: 15.06,
+        tipoRecursoId: 1,
+        cuencaId: cuenca.id,
+      },
+      {
+        anio: 2009,
+        produccionPetroleo: 2699.51,
+        produccionGas: 184.69,
+        tipoRecursoId: 2,
+        cuencaId: cuenca.id,
+      },
+      {
+        anio: 2010,
+        produccionPetroleo: 357.23,
+        produccionGas: 42.82,
+        tipoRecursoId: 2,
+        cuencaId: cuenca.id,
+      },
+    ],
+  });
+
   console.log('Seed completado');
 }
 

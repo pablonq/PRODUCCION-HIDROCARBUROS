@@ -13,6 +13,8 @@ model Empresa {
   comentario String?
   areas   Area[]
   producciones ProduccionMensual[]
+  produccionesAnuales ProduccionAnualEmpresa[]
+  @@index([nombreEmpresa]) // Índice para búsquedas rápidas por nombre de empresa
 }
 
 model Area {
@@ -28,15 +30,14 @@ model Area {
   @@index([empresaId]) // Índice para buscar rápido áreas por empresa
 }
 
-
-
 model Cuenca {
   id            Int     @id @default(autoincrement())
   nombreCuenca  String
   comentario    String?
   areas         Area[]
+  producciones ProduccionAnualEmpresa[]
+  produccionesRecursos ProduccionAnualRecurso[]
 }
-
 
 model Yacimiento {
   id       Int     @id @default(autoincrement())
@@ -152,6 +153,36 @@ model TipoRecurso {
   subTipoRecurso String?
   comentario String?
   pozos   Pozo[]
+  producciones ProduccionAnualRecurso[]
+  
+}
+
+model ProduccionAnualEmpresa{
+  id          Int     @id @default(autoincrement())
+  anio        Int
+  produccionPetroleo Float?
+  produccionGas      Float?
+  empresaId          Int
+  empresa            Empresa @relation(fields: [empresaId], references: [id])
+  cuencaId          Int
+  cuenca            Cuenca @relation(fields: [cuencaId], references: [id])
+  
+  @@index([anio]) // Índice para búsquedas rápidas por año
+}
+
+model ProduccionAnualRecurso {
+  id          Int     @id @default(autoincrement())
+  anio        Int
+  produccionPetroleo Float?
+  produccionGas      Float?
+  tipoRecursoId    Int
+  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+  cuencaId          Int
+  cuenca            Cuenca @relation(fields: [cuencaId], references: [id])
+  
+  
+  @@index([anio]) // Índice para búsquedas rápidas por año
+  
 }
 
 

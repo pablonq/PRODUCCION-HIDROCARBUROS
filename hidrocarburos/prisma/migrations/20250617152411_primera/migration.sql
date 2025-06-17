@@ -130,8 +130,35 @@ CREATE TABLE "TipoRecurso" (
     "comentario" TEXT
 );
 
+-- CreateTable
+CREATE TABLE "ProduccionAnualEmpresa" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "anio" INTEGER NOT NULL,
+    "produccionPetroleo" REAL,
+    "produccionGas" REAL,
+    "empresaId" INTEGER NOT NULL,
+    "cuencaId" INTEGER NOT NULL,
+    CONSTRAINT "ProduccionAnualEmpresa_empresaId_fkey" FOREIGN KEY ("empresaId") REFERENCES "Empresa" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "ProduccionAnualEmpresa_cuencaId_fkey" FOREIGN KEY ("cuencaId") REFERENCES "Cuenca" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "ProduccionAnualRecurso" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "anio" INTEGER NOT NULL,
+    "produccionPetroleo" REAL,
+    "produccionGas" REAL,
+    "tipoRecursoId" INTEGER NOT NULL,
+    "cuencaId" INTEGER NOT NULL,
+    CONSTRAINT "ProduccionAnualRecurso_tipoRecursoId_fkey" FOREIGN KEY ("tipoRecursoId") REFERENCES "TipoRecurso" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "ProduccionAnualRecurso_cuencaId_fkey" FOREIGN KEY ("cuencaId") REFERENCES "Cuenca" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Empresa_nombreEmpresa_key" ON "Empresa"("nombreEmpresa");
+
+-- CreateIndex
+CREATE INDEX "Empresa_nombreEmpresa_idx" ON "Empresa"("nombreEmpresa");
 
 -- CreateIndex
 CREATE INDEX "Area_cuencaId_idx" ON "Area"("cuencaId");
@@ -174,3 +201,9 @@ CREATE UNIQUE INDEX "EstadoPozo_nombreEstado_key" ON "EstadoPozo"("nombreEstado"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "TipoPozo_tipoPozo_key" ON "TipoPozo"("tipoPozo");
+
+-- CreateIndex
+CREATE INDEX "ProduccionAnualEmpresa_anio_idx" ON "ProduccionAnualEmpresa"("anio");
+
+-- CreateIndex
+CREATE INDEX "ProduccionAnualRecurso_anio_idx" ON "ProduccionAnualRecurso"("anio");

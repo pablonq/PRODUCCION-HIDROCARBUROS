@@ -2,7 +2,7 @@
 
 export default function HomePage() {
   return (
-    <div class>HomePage</div>
+    <div className="text-8xl text-green-950">HomePage</div>
   );
 }
 

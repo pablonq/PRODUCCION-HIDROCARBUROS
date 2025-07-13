@@ -12,8 +12,8 @@ model Empresa {
   nombreEmpresa  String  @unique
   comentario String?
   areas   Area[]
-  producciones ProduccionMensual[]
-  produccionesAnuales ProduccionAnualEmpresa[]
+  producciones Produccion[]
+  
   @@index([nombreEmpresa]) // Índice para búsquedas rápidas por nombre de empresa
 }
 
@@ -24,7 +24,8 @@ model Area {
   cuencaId  Int
   empresa   Empresa @relation(fields: [empresaId], references: [id])
   empresaId Int
-  yacimientos Yacimiento[]
+  producciones Produccion[]
+  
   comentario String?
   @@index([cuencaId])  // Índice para buscar rápido áreas por cuenca
   @@index([empresaId]) // Índice para buscar rápido áreas por empresa
@@ -35,116 +36,42 @@ model Cuenca {
   nombreCuenca  String
   comentario    String?
   areas         Area[]
-  producciones ProduccionAnualEmpresa[]
-  produccionesRecursos ProduccionAnualRecurso[]
+  
 }
 
-model Yacimiento {
-  id       Int     @id @default(autoincrement())
-  nombreYacimiento   String
-  area     Area    @relation(fields: [areaId], references: [id])
-  areaId   Int
-  pozos    Pozo[]
-  @@index([areaId])  // Índice para filtrar yacimientos por área
-}
 
 model Pozo {
   id               Int     @id @default(autoincrement())
-  sigla          String  
-  nombrePozo           String //nombre propio
-  latitud          Float?
-  longitud         Float?
-  cota             Float?
-  profundidad      Float?
-  tiempoEfectivo   Float?
-  vidaUtil         Float?
+  cantidad         Int  
+  mes               Int
+  anio              Int
   observaciones    String?
-  estadoPozoId         Int
-  tipoPozoId           Int
-  clasificacionPozoId  Int
   tipoRecursoId    Int
-  sistemaExtraccionId Int
-  yacimientoId     Int
-  estado           EstadoPozo @relation(fields: [estadoPozoId], references: [id])
-  tipo             TipoPozo @relation(fields: [tipoPozoId], references: [id])
-  clasificacion    ClasificacionPozo @relation(fields: [clasificacionPozoId], references: [id])
   tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
-  sistemaExtraccion SistemaExtraccion @relation(fields: [sistemaExtraccionId], references: [id])
-  yacimiento       Yacimiento @relation(fields: [yacimientoId], references: [id])
-  formacionesProductivas PozoFormacion[]
-  produccionMensual ProduccionMensual[]
-  @@index([yacimientoId])  // Índice para buscar pozos por yacimiento
-  @@index([latitud, longitud]) // Índice para búsquedas por ubicación
-  @@index([sistemaExtraccionId]) // Índice para buscar pozos por estado
+  fluidoId          Int
+  fluido            Fluido @relation(fields: [fluidoId], references: [id])
   @@index([tipoRecursoId]) // Índice para buscar pozos por tipo de recurso
-  @@index([tipoPozoId])
+  
 }
 
-model PozoFormacion{
-  id Int @id @default(autoincrement())
-  pozoId Int
-  formacionId Int
-  pozo Pozo @relation(fields: [pozoId], references: [id])
-  formacion FormacionProductiva @relation(fields: [formacionId], references: [id])
-}
-
-model FormacionProductiva {
-  id      Int   @id @default(autoincrement())
-  nombreFormacion  String
-  comentario String?
-  pozo PozoFormacion[]
-}
-
-model ProduccionMensual {
+model Produccion {
   id                 Int     @id @default(autoincrement())
+  cantidad           Int
   mes                Int
   anio               Int
-  produccionPetroleo Float?
-  produccionGas      Float?
-  produccionAgua     Float?
-  inyeccionAgua      Float?
-  inyeccionGas       Float?
-  inyeccionCO2       Float?
-  inyeccionOtros     Float?
-  relacionGasPetroleo Float?
-  porcentajeAgua     Float?
-  pozoId             Int
-  pozo               Pozo    @relation(fields: [pozoId], references: [id])
+  observaciones    String?
+  fluidoId          Int
+  fluido            Fluido @relation(fields: [fluidoId], references: [id])
+  areaId            Int
+  area              Area @relation(fields: [areaId], references: [id])
   empresaId          Int
   empresa            Empresa @relation(fields: [empresaId], references: [id])
+  tipoRecursoId    Int
+  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+   
   
-  @@index([pozoId])  // Índice para buscar producción por pozo
   @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
   @@index([empresaId]) // Índice para buscar producción por empresa
-}
-
-model SistemaExtraccion {
-  id      Int     @id @default(autoincrement())
-  nombreSistema  String  @unique
-  comentario String?
-  pozos   Pozo[]
-}
-
-model EstadoPozo {
-  id      Int     @id @default(autoincrement())
-  nombreEstado  String  @unique
-  comentario String?
-  pozos   Pozo[]
-}
-
-model TipoPozo {
-  id      Int     @id @default(autoincrement())
-  tipoPozo  String  @unique
-  comentario String?
-  pozos   Pozo[]
-}
-
-model ClasificacionPozo {
-  id      Int     @id @default(autoincrement())
-  clasificacionPozo  String  
-  subClasificacionPozo String?
-  comentario String?
-  pozos   Pozo[]
 }
 
 model TipoRecurso {
@@ -152,37 +79,24 @@ model TipoRecurso {
   tipoRecurso  String  
   subTipoRecurso String?
   comentario String?
+  
+  produccion Produccion[]
   pozos   Pozo[]
-  producciones ProduccionAnualRecurso[]
+  
   
 }
 
-model ProduccionAnualEmpresa{
-  id          Int     @id @default(autoincrement())
-  anio        Int
-  produccionPetroleo Float?
-  produccionGas      Float?
-  empresaId          Int
-  empresa            Empresa @relation(fields: [empresaId], references: [id])
-  cuencaId          Int
-  cuenca            Cuenca @relation(fields: [cuencaId], references: [id])
-  
-  @@index([anio]) // Índice para búsquedas rápidas por año
+model Fluido {
+  id      Int     @id @default(autoincrement())
+  tipoFluido String
+  comentario String?
+  producciones Produccion[]
+  pozos   Pozo[]
+    
 }
 
-model ProduccionAnualRecurso {
-  id          Int     @id @default(autoincrement())
-  anio        Int
-  produccionPetroleo Float?
-  produccionGas      Float?
-  tipoRecursoId    Int
-  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
-  cuencaId          Int
-  cuenca            Cuenca @relation(fields: [cuencaId], references: [id])
-  
-  
-  @@index([anio]) // Índice para búsquedas rápidas por año
-  
-}
+
+
+
 
 

@@ -22,37 +22,29 @@ export default function Pozos() {
     } catch (error) {
       setError(error.message);
     }
-    
+
   }
 
   useEffect(() => {
     const fetchData = async () => {
-    await loadPozos();
-        };
-      fetchData();
-      
+      await loadPozos();
+    };
+    fetchData();
+
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="">
       <h1 className="text-2xl font-bold mb-4 text-orange-800">Bienvenido a la página de Pozos</h1>
-      <p className="text-lg text-blue-800 mb-6">Aquí puedes gestionar todos los pozos de hidrocarburos.</p>
-      {error && <div className="text-red-600 mb-4">{error}</div>}
-      <div className="w-full max-w-3xl bg-white rounded shadow p-6">
-        <h2 className="text-xl font-semibold mb-4 text-orange-700">Listado de Pozos</h2>
-        <ul className="space-y-2">
-          {pozos.length === 0 && !error && (
-            <li className="text-gray-500">No hay datos disponibles.</li>
-          )}
-          {pozos.map((pozo, idx) => (
-            <li key={idx} className="border-b py-2">
-              <span className="font-bold text-orange-900">{pozo.cantidad}</span>{" "}
-              <span className="text-gray-700">| {pozo.fluido.tipoFluido} | </span>
-              <span className="text-gray-700">{pozo.tipoRecurso.tipoRecurso} | </span>
-            </li>
-          ))}
-        </ul>
+      <div class="grid [grid-template-columns:repeat(2,minmax(0,1fr))_0.5fr] [grid-template-rows:repeat(2,minmax(0,1fr))] gap-[10px]">
+        <div class="col-start-3 col-end-4 row-start-1 row-end-3 bg-red-200">div1</div>
+        <div class="col-start-2 col-end-3 row-start-1 row-end-2 bg-blue-200">div2</div>
+        <div class="col-start-2 col-end-3 row-start-2 row-end-3 bg-green-200">div3</div>
+        <div class="col-start-1 col-end-2 row-start-2 row-end-3 bg-yellow-200">div4</div>
+        <div class="col-start-1 col-end-2 row-start-1 row-end-2 bg-purple-200">div5</div>
       </div>
+
     </div>
+    
   );
 }

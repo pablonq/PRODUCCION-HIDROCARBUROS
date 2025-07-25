@@ -1,6 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import { LineChart } from "@mui/x-charts/LineChart";
+
 import { BarChart } from "@mui/x-charts/BarChart";
 import Box from '@mui/material/Box';
 import { ChartContainer } from '@mui/x-charts/ChartContainer';
@@ -8,7 +7,8 @@ import { LinePlot } from '@mui/x-charts/LineChart';
 import { BarPlot } from '@mui/x-charts/BarChart';
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
 import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
-import ReactECharts from 'echarts-for-react';
+
+import ProduccionGasRecurso from "@/components/graficas/ProduccionGasRecurso";
 
 
 // import { barChartClasses } from '@mui/x-charts/BarChart';
@@ -33,195 +33,23 @@ const chartTheme = {
 
 
 export default function Produccion() {
-  const option = {
-  title: {
-    text: 'Stacked Area Chart'
-  },
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'cross',
-      label: {
-        backgroundColor: '#6a7985'
-      }
-    }
-  },
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  xAxis: [
-    {
-      type: 'category',
-      boundaryGap: true,
-      data: [
-        'Ene',
-        'Mar',
-        'Abr',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat',
-        'Sun'
-      ]
-    }
-  ],
-  yAxis: [
-    {
-      type: 'value'
-    }
-  ],
-  series: [
-    {
-      name: 'Email',
-      smooth: true,
-      type: 'line',
 
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [null, null, null, 120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-      name: 'Union Ads',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [null, null, null, 220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-      name: 'Video Ads',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [null, null, null, 150, 232, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Direct',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [null, null, null, 320, 332, 301, 334, 390, 330, 320]
-    },
-    {
-      name: 'Direct',
-      type: 'bar',
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [320, 332, 301]
-    },
-    {
-      name: 'Video Ads',
-      type: 'bar',
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [50, 256, 125]
-    },
-    {
-      name: 'Search Engine',
-      type: 'line',
-      smooth: true,
-      stack: 'Total',
-      label: {
-        show: true,
-        position: 'top'
-      },
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [null, null, null, 820, 932, 901, 934, 1290, 1330, 1320]
-    }
-  ]
-};
-
-
-  const [produccion, setProduccion] = useState([]);
-
-  async function loadProduccion() {
-    try {
-      const response = await fetch('/api/produccion');
-      const data = await response.json();
-      console.log("Producción cargada:", data);
-
-      setProduccion(data);
-    } catch (error) {
-      console.error('Error al cargar la produccion:', error);
-    }
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await loadProduccion();
-    };
-
-    fetchData();
-  }, []);
 
 
   return (
     <div className="flex flex-col min-h-screen w-full items-center justify-center bg-gray-200 py-0">
       <h1 className="text-2xl font-bold ">Bienvenido a la página de Producción</h1>
-      <div className="grid [grid-template-columns:repeat(2,minmax(0,1fr))_0.5fr] [grid-template-rows:repeat(2,minmax(0,1fr))] gap-[10px]">
-        <div className="col-start-3 col-end-4 row-start-1 row-end-3 bg-gray-500">
-          <h2 className="text-xl font-semibold text-white">Gráfico de Producción</h2>
-          <p className="text-white">Aquí puedes ver un gráfico representativo de la producción.</p>
-        </div>
-        <div className="col-start-2 col-end-3 row-start-1 row-end-2 bg-blue-200">
-          <ul className="w-full max-w-3xl bg-white rounded shadow p-6 my-20">
-            <h2 className="text-xl font-semibold mb-4">Listado de Producción</h2>
-            {produccion.length === 0 ? (
-              <li className="text-gray-500">No hay datos disponibles.</li>
-            ) : (
-              produccion.map((item, idx) => (
-                <li key={idx} className="border-b py-2">
-                  <span className="font-bold text-orange-900">{item.cantidad}</span>{" "}
-                  <span className="text-gray-700">| {item.empresa.nombreEmpresa} | </span>
-                  <span className="text-gray-700">{item.fluido.tipoFluido} | {item.area.nombreArea} | {item.tipoRecurso.tipoRecurso}</span>
-
-                </li>
-              ))
-            )}
-          </ul>
+      <div className="grid grid-rows-2 grid-cols-2 gap-x-10 gap-y-4 w-full p-2">
+        
+        <div className="w-full bg-blue-200">
+          <ProduccionGasRecurso />
         </div>
 
-        <div className="col-start-2 col-end-3 row-start-2 row-end-3 bg-green-200">
-          <ReactECharts option={option} />
+        <div className="w-full bg-blue-200">
+          
         </div>
 
-        <div className="col-start-1 col-end-2 row-start-2 row-end-3 bg-[#102e4d]">
+        <div className="w-full bg-blue-200">
 
           <BarChart
             series={[
@@ -265,7 +93,7 @@ export default function Produccion() {
 
         </div>
 
-        <div className="col-start-1 col-end-2 row-start-1 row-end-2 bg-transparent">
+        <div className="w-full bg-blue-200">
           <Box sx={{ width: '100%', maxWidth: 600 }}>
             <ChartContainer
               xAxis={[{

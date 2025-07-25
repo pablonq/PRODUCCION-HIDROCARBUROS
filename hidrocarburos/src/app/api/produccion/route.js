@@ -23,7 +23,7 @@ export async function GET(request) {
       empresa: { select: { nombreEmpresa: true } },
       fluido: { select: { tipoFluido: true } },
       area: { select: { nombreArea: true } },
-      tipoRecurso: { select: { tipoRecurso: true } },
+      tipoRecurso: { select: { tipoRecurso: true, subTipoRecurso: true } },
     },
   });
     

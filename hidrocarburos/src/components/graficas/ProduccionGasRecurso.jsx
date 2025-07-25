@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 
 export default function ProduccionGasRecurso() {
+  const [produccion, setProduccion] = useState([]);
 
   const option = {
     title: {
@@ -37,16 +38,29 @@ export default function ProduccionGasRecurso() {
         type: 'category',
         boundaryGap: true,
         data: [
+          '2010',
+          '2011',
+          '2012',
+          '2013',
+          '2014',
+          '2015',
+          '2016',
+          '2017',
+          '2018',
+          '2019',
+          '2020',
+          '2021',
+          '2022',
+          '2023',
+          '2024',
+          
           'Ene',
+          'Feb',
           'Mar',
           'Abr',
-          'Mon',
-          'Tue',
-          'Wed',
-          'Thu',
-          'Fri',
-          'Sat',
-          'Sun'
+          'May',
+          'Jun',
+          'Jul'
         ]
       }
     ],
@@ -57,7 +71,7 @@ export default function ProduccionGasRecurso() {
     ],
     series: [
       {
-        name: 'Email',
+        name: 'Convencional',
         smooth: true,
         type: 'line',
 
@@ -66,10 +80,10 @@ export default function ProduccionGasRecurso() {
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null, 120, 132, 101, 134, 90, 230, 210]
+        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 120, 132, 101, 134, 90, 230, 210]
       },
       {
-        name: 'Union Ads',
+        name: 'Shale Gas',
         type: 'line',
         stack: 'Total',
         smooth: true,
@@ -77,10 +91,10 @@ export default function ProduccionGasRecurso() {
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null, 220, 182, 191, 234, 290, 330, 310]
+        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 220, 182, 191, 234, 290, 330, 310]
       },
       {
-        name: 'Video Ads',
+        name: 'Tight Gas',
         type: 'line',
         stack: 'Total',
         smooth: true,
@@ -88,29 +102,10 @@ export default function ProduccionGasRecurso() {
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null, 150, 232, 201, 154, 190, 330, 410]
+        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 150, 232, 201, 154, 190, 330, 410]
       },
-      {
-        name: 'Direct',
-        type: 'line',
-        stack: 'Total',
-        smooth: true,
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [null, null, null, 320, 332, 301, 334, 390, 330, 320]
-      },
-      {
-        name: 'Direct',
-        type: 'bar',
-        stack: 'Total',
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [320, 332, 301]
-      },
+      
+        
       {
         name: 'Video Ads',
         type: 'bar',
@@ -122,7 +117,7 @@ export default function ProduccionGasRecurso() {
         data: [50, 256, 125]
       },
       {
-        name: 'Search Engine',
+        name: 'Convencional',
         type: 'line',
         smooth: true,
         stack: 'Total',
@@ -134,16 +129,16 @@ export default function ProduccionGasRecurso() {
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null, 820, 932, 901, 934, 1290, 1330, 1320]
+        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 820, 932, 901, 934, 1290, 1330, 1320]
       }
     ]
   };
 
-    async function loadProduccionPetroleo() {
+    async function loadProduccionGasConvencional() {
       try {
-        const response = await fetch('/api/produccion?fluidoId=1');
+        const response = await fetch('/api/produccion?fluidoId=2&tipoRecursoId=2');
         const data = await response.json();
-        console.log("Producción cargada:", data);
+        
   
         setProduccion(data);
       } catch (error) {
@@ -153,7 +148,7 @@ export default function ProduccionGasRecurso() {
   
     useEffect(() => {
       const fetchData = async () => {
-        await loadProduccionPetroleo();
+        await loadProduccionGasConvencional();
       };
   
       fetchData();

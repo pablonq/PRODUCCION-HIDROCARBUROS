@@ -145,29 +145,44 @@ export default function ProduccionOilRecurso() {
         "/api/produccion?fluidoId=1&tipoRecursoId=2&subTipoRecursoId=2"
       );
       const data = await response.json();
-      console.log(data);
-      const dataProduccionShale = [];
-      data.map((item) => {
-        if (item.tipoRecurso.subTipoRecurso == "SHALE") {
-          console.log(item.cantidad);
-          
-        }
-      });
+      const dataProduccionShale = data
+        .filter(item => item.tipoRecurso.subTipoRecurso === "SHALE")
+        .map(item => item.cantidad);
       setProduccionShale(dataProduccionShale);
-      console.log(produccionShale);
     } catch (error) {
       console.error("Error al cargar la produccion:", error);
     }
   }
 
+  async function loadProduccionPetroleoShale() {
+    try {
+      const response = await fetch(
+        "/api/produccion?fluidoId=1&tipoRecursoId=2&subTipoRecursoId=3"
+      );
+      const data = await response.json();
+      const dataProduccionShale = data
+        .filter(item => item.tipoRecurso.subTipoRecurso === "TIGHT")
+        .map(item => item.cantidad);
+      setProduccionShale(dataProduccionShale);
+    } catch (error) {
+      console.error("Error al cargar la produccion:", error);
+    }
+  }
+
+
   useEffect(() => {
     const fetchData = async () => {
       await loadProduccionPetroleoShale();
+
     };
 
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("produccionShale actualizado:", produccionShale);
+  }, [produccionShale]);
+  
   return (
     <>
       <ReactECharts option={option} />

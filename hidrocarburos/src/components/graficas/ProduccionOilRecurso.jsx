@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
 export default function ProduccionOilRecurso() {
-  const [produccionShaleMensual, setProduccionShaleMensual] = useState([]);
-  const [produccionShaleAnual, setProduccionShaleAnual] = useState([]);
+  const [prodOilConvMensual, setProdOilConvMensual] = useState([]);
+  const [prodOilConvAnual, setProdOilConvAnual] = useState([]);
+
+  const [prodOilShaleMensual, setProdOilShaleMensual] = useState([]);
+  const [prodOilShaleAnual, setProdOilShaleAnual] = useState([]);
+
+  const [prodOilTightMensual, setProdOilTightMensual] = useState([]);
+  const [prodOilTightAnual, setProdOilTightAnual] = useState([]);
 
   const option = {
     title: {
@@ -38,16 +44,29 @@ export default function ProduccionOilRecurso() {
         type: "category",
         boundaryGap: true,
         data: [
+          "2010",
+          "2011",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
           "Ene",
+          "Feb",
           "Mar",
           "Abr",
-          "Mon",
-          "Tue",
-          "Wed",
-          "Thu",
-          "Fri",
-          "Sat",
-          "Sun",
+          "May",
+          "Jun",
+          "Jul",
+          
         ],
       },
     ],
@@ -58,7 +77,7 @@ export default function ProduccionOilRecurso() {
     ],
     series: [
       {
-        name: "Email",
+        name: "Oil Convencional",
         smooth: true,
         type: "line",
 
@@ -67,10 +86,10 @@ export default function ProduccionOilRecurso() {
         emphasis: {
           focus: "series",
         },
-        data: [null, null, null, 120, 132, 101, 134, 90, 230, 210],
+        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilConvMensual],
       },
       {
-        name: "Union Ads",
+        name: "Oil Shale",
         type: "line",
         stack: "Total",
         smooth: true,
@@ -78,10 +97,10 @@ export default function ProduccionOilRecurso() {
         emphasis: {
           focus: "series",
         },
-        data: [null, null, null, 220, 182, 191, 234, 290, 330, 310],
+        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilShaleMensual],
       },
       {
-        name: "Video Ads",
+        name: "Oil Tight",
         type: "line",
         stack: "Total",
         smooth: true,
@@ -103,27 +122,37 @@ export default function ProduccionOilRecurso() {
         data: [null, null, null, 320, 332, 301, 334, 390, 330, 320],
       },
       {
-        name: "Direct",
+        name: "Oil Convencional",
         type: "bar",
         stack: "Total",
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: [320, 332, 301],
+        data: prodOilConvAnual,
       },
       {
-        name: "Video Ads",
+        name: "Oil Tight",
         type: "bar",
         stack: "Total",
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: [50, 256, 125],
+        data: prodOilTightAnual,
       },
       {
-        name: "Search Engine",
+        name: "Oil Shale",
+        type: "bar",
+        stack: "Total",
+        areaStyle: {},
+        emphasis: {
+          focus: "series",
+        },
+        data: prodOilShaleAnual,
+      },
+      {
+        name: "Oil Convencional",
         type: "line",
         smooth: true,
         stack: "Total",
@@ -135,41 +164,66 @@ export default function ProduccionOilRecurso() {
         emphasis: {
           focus: "series",
         },
-        data: [null, null, null, 820, 932, 901, 934, 1290, 1330, 1320],
+        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilConvAnual],
       },
     ],
   };
 
-  async function loadProduccionPetroleoShale() {
+  async function loadProdOilConv() {
     try {
       const response = await fetch(
-        "/api/produccion?fluidoId=1"
+        "/api/produccion/recurso?fluidoId=1&tipoRecursoId=1"
       );
       const data = await response.json();
-      const dataProduccionShaleMensual = data
-        .filter(item => item.anio === 2025 && item.tipoRecurso.subTipoRecurso === "SHALE")
+      const dataProdOilConvMensual = data
+        .filter(item => item.anio === 2025)
         .map(item => item.cantidad);
-      setProduccionShaleMensual(dataProduccionShaleMensual);
+      setProdOilConvMensual(dataProdOilConvMensual);
 
-      const dataProduccionShaleAnual = data
-        .filter(item => item.anio !== 2025 && item.tipoRecurso.subTipoRecurso === "SHALE")
+      const dataProdOilConvAnual = data
+        .filter(item => item.anio !== 2025)
         .map(item => item.cantidad);
-      setProduccionShaleAnual(dataProduccionShaleAnual);
+      setProdOilConvAnual(dataProdOilConvAnual);
     } catch (error) {
       console.error("Error al cargar la produccion:", error);
     }
   }
 
-  async function loadProduccionPetroleoTight() {
+  async function loadProdOilShale() {
     try {
       const response = await fetch(
-        "/api/produccion?fluidoId=1&tipoRecursoId=2&subTipoRecursoId=3"
+        "/api/produccion/recurso?fluidoId=1&tipoRecursoId=2"
       );
       const data = await response.json();
-      const dataProduccionShale = data
-        .filter(item => item.tipoRecurso.subTipoRecurso === "TIGHT")
+      const dataProdOilShaleMensual = data
+        .filter(item => item.anio === 2025)
         .map(item => item.cantidad);
-      setProduccionShale(dataProduccionShale);
+      setProdOilShaleMensual(dataProdOilShaleMensual);
+
+      const dataProdOilShaleAnual = data
+        .filter(item => item.anio !== 2025)
+        .map(item => item.cantidad);
+      setProdOilShaleAnual(dataProdOilShaleAnual);
+    } catch (error) {
+      console.error("Error al cargar la produccion:", error);
+    }
+  }
+
+  async function loadProdOilTight() {
+    try {
+      const response = await fetch(
+        "/api/produccion/recurso?fluidoId=1&tipoRecursoId=3"
+      );
+      const data = await response.json();
+      const dataProdOilTightMensual = data
+        .filter(item => item.anio === 2025)
+        .map(item => item.cantidad);
+      setProdOilTightMensual(dataProdOilTightMensual);
+
+      const dataProdOilTightAnual = data
+        .filter(item => item.anio !== 2025)
+        .map(item => item.cantidad);
+      setProdOilTightAnual(dataProdOilTightAnual);
     } catch (error) {
       console.error("Error al cargar la produccion:", error);
     }
@@ -178,16 +232,17 @@ export default function ProduccionOilRecurso() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await loadProduccionPetroleoShale();
-
+      await loadProdOilConv();
+      await loadProdOilShale();
+      await loadProdOilTight();
     };
 
     fetchData();
   }, []);
 
   useEffect(() => {
-    console.log("produccionShale actualizado:", produccionShaleMensual, produccionShaleAnual);
-  }, [produccionShaleMensual, produccionShaleAnual]);
+    console.log("produccion Oil Convencional:", prodOilConvMensual,prodOilConvAnual,"Produccion Oil Shale:", prodOilShaleMensual, prodOilShaleAnual,"Produccion Oil Tight:", prodOilTightMensual, prodOilTightAnual);
+  }, [prodOilConvMensual, prodOilConvAnual,prodOilShaleMensual, prodOilShaleAnual,prodOilTightMensual, prodOilTightAnual]);
   
   return (
     <>

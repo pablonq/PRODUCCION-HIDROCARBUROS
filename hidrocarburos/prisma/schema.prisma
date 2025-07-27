@@ -8,95 +8,111 @@ datasource db {
 }
 
 model Empresa {
-  id      Int     @id @default(autoincrement())
-  nombreEmpresa  String  @unique
-  comentario String?
-  areas   Area[]
-  producciones Produccion[]
-  
+  id            Int                 @id @default(autoincrement())
+  nombreEmpresa String              @unique
+  comentario    String?
+  areas         Area[]
+  producciones  ProduccionEmpresa[]
+
   @@index([nombreEmpresa]) // Índice para búsquedas rápidas por nombre de empresa
 }
 
 model Area {
-  id        Int     @id @default(autoincrement())
-  nombreArea    String
-  cuenca    Cuenca  @relation(fields: [cuencaId], references: [id])
-  cuencaId  Int
-  empresa   Empresa @relation(fields: [empresaId], references: [id])
-  empresaId Int
-  producciones Produccion[]
-  
+  id           Int              @id @default(autoincrement())
+  nombreArea   String
+  cuenca       Cuenca           @relation(fields: [cuencaId], references: [id])
+  cuencaId     Int
+  empresa      Empresa          @relation(fields: [empresaId], references: [id])
+  empresaId    Int
+  producciones ProduccionArea[]
+
   comentario String?
-  @@index([cuencaId])  // Índice para buscar rápido áreas por cuenca
+
+  @@index([cuencaId]) // Índice para buscar rápido áreas por cuenca
   @@index([empresaId]) // Índice para buscar rápido áreas por empresa
 }
 
 model Cuenca {
-  id            Int     @id @default(autoincrement())
-  nombreCuenca  String
-  comentario    String?
-  areas         Area[]
-  
+  id           Int     @id @default(autoincrement())
+  nombreCuenca String
+  comentario   String?
+  areas        Area[]
 }
-
 
 model Pozo {
-  id               Int     @id @default(autoincrement())
-  cantidad         Int  
-  mes               Int
-  anio              Int
-  observaciones    String?
-  tipoRecursoId    Int
-  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
-  fluidoId          Int
-  fluido            Fluido @relation(fields: [fluidoId], references: [id])
+  id            Int         @id @default(autoincrement())
+  cantidad      Int
+  mes           Int
+  anio          Int
+  observaciones String?
+  tipoRecursoId Int
+  tipoRecurso   TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+  fluidoId      Int
+  fluido        Fluido      @relation(fields: [fluidoId], references: [id])
+
   @@index([tipoRecursoId]) // Índice para buscar pozos por tipo de recurso
-  
 }
 
-model Produccion {
-  id                 Int     @id @default(autoincrement())
-  cantidad           Int
-  mes                Int
-  anio               Int
-  observaciones    String?
-  fluidoId          Int
-  fluido            Fluido @relation(fields: [fluidoId], references: [id])
-  areaId            Int
-  area              Area @relation(fields: [areaId], references: [id])
-  empresaId          Int
-  empresa            Empresa @relation(fields: [empresaId], references: [id])
-  tipoRecursoId    Int
-  tipoRecurso      TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
-   
-  
+model ProduccionEmpresa {
+  id            Int     @id @default(autoincrement())
+  cantidad      Int
+  mes           Int?
+  anio          Int
+  observaciones String?
+  fluidoId      Int
+  fluido        Fluido  @relation(fields: [fluidoId], references: [id])
+  empresaId     Int
+  empresa       Empresa @relation(fields: [empresaId], references: [id])
+
   @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
   @@index([empresaId]) // Índice para buscar producción por empresa
 }
 
+model ProduccionRecurso {
+  id            Int         @id @default(autoincrement())
+  cantidad      Int
+  mes           Int?
+  anio          Int
+  observaciones String?
+  fluidoId      Int
+  fluido        Fluido      @relation(fields: [fluidoId], references: [id])
+  tipoRecursoId Int
+  tipoRecurso   TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+
+  @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
+}
+
+model ProduccionArea {
+  id            Int     @id @default(autoincrement())
+  cantidad      Int
+  mes           Int?
+  anio          Int
+  observaciones String?
+  fluidoId      Int
+  fluido        Fluido  @relation(fields: [fluidoId], references: [id])
+  areaId        Int
+  area          Area    @relation(fields: [areaId], references: [id])
+
+  @@index([anio, mes]) // Índice para búsquedas rápidas por fecha
+}
+
 model TipoRecurso {
-  id      Int     @id @default(autoincrement())
-  tipoRecurso  String  
+  id             Int     @id @default(autoincrement())
+  tipoRecurso    String
   subTipoRecurso String?
-  comentario String?
-  
-  produccion Produccion[]
-  pozos   Pozo[]
-  
-  
+  comentario     String?
+
+  produccion ProduccionRecurso[]
+  pozos      Pozo[]
 }
 
 model Fluido {
-  id      Int     @id @default(autoincrement())
-  tipoFluido String
-  comentario String?
-  producciones Produccion[]
-  pozos   Pozo[]
-    
+  id                Int                 @id @default(autoincrement())
+  tipoFluido        String
+  comentario        String?
+  produccionRecurso ProduccionRecurso[]
+  produccionArea    ProduccionArea[]
+  produccionEmpresa ProduccionEmpresa[]
+
+  pozos Pozo[]
 }
-
-
-
-
-
-

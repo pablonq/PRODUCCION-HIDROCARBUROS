@@ -37,20 +37,42 @@ CREATE TABLE "Pozo" (
 );
 
 -- CreateTable
-CREATE TABLE "Produccion" (
+CREATE TABLE "ProduccionEmpresa" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "cantidad" INTEGER NOT NULL,
-    "mes" INTEGER NOT NULL,
+    "mes" INTEGER,
+    "anio" INTEGER NOT NULL,
+    "observaciones" TEXT,
+    "fluidoId" INTEGER NOT NULL,
+    "empresaId" INTEGER NOT NULL,
+    CONSTRAINT "ProduccionEmpresa_fluidoId_fkey" FOREIGN KEY ("fluidoId") REFERENCES "Fluido" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "ProduccionEmpresa_empresaId_fkey" FOREIGN KEY ("empresaId") REFERENCES "Empresa" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "ProduccionRecurso" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "cantidad" INTEGER NOT NULL,
+    "mes" INTEGER,
+    "anio" INTEGER NOT NULL,
+    "observaciones" TEXT,
+    "fluidoId" INTEGER NOT NULL,
+    "tipoRecursoId" INTEGER NOT NULL,
+    CONSTRAINT "ProduccionRecurso_fluidoId_fkey" FOREIGN KEY ("fluidoId") REFERENCES "Fluido" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "ProduccionRecurso_tipoRecursoId_fkey" FOREIGN KEY ("tipoRecursoId") REFERENCES "TipoRecurso" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "ProduccionArea" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "cantidad" INTEGER NOT NULL,
+    "mes" INTEGER,
     "anio" INTEGER NOT NULL,
     "observaciones" TEXT,
     "fluidoId" INTEGER NOT NULL,
     "areaId" INTEGER NOT NULL,
-    "empresaId" INTEGER NOT NULL,
-    "tipoRecursoId" INTEGER NOT NULL,
-    CONSTRAINT "Produccion_fluidoId_fkey" FOREIGN KEY ("fluidoId") REFERENCES "Fluido" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Produccion_areaId_fkey" FOREIGN KEY ("areaId") REFERENCES "Area" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Produccion_empresaId_fkey" FOREIGN KEY ("empresaId") REFERENCES "Empresa" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Produccion_tipoRecursoId_fkey" FOREIGN KEY ("tipoRecursoId") REFERENCES "TipoRecurso" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "ProduccionArea_fluidoId_fkey" FOREIGN KEY ("fluidoId") REFERENCES "Fluido" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "ProduccionArea_areaId_fkey" FOREIGN KEY ("areaId") REFERENCES "Area" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -84,7 +106,13 @@ CREATE INDEX "Area_empresaId_idx" ON "Area"("empresaId");
 CREATE INDEX "Pozo_tipoRecursoId_idx" ON "Pozo"("tipoRecursoId");
 
 -- CreateIndex
-CREATE INDEX "Produccion_anio_mes_idx" ON "Produccion"("anio", "mes");
+CREATE INDEX "ProduccionEmpresa_anio_mes_idx" ON "ProduccionEmpresa"("anio", "mes");
 
 -- CreateIndex
-CREATE INDEX "Produccion_empresaId_idx" ON "Produccion"("empresaId");
+CREATE INDEX "ProduccionEmpresa_empresaId_idx" ON "ProduccionEmpresa"("empresaId");
+
+-- CreateIndex
+CREATE INDEX "ProduccionRecurso_anio_mes_idx" ON "ProduccionRecurso"("anio", "mes");
+
+-- CreateIndex
+CREATE INDEX "ProduccionArea_anio_mes_idx" ON "ProduccionArea"("anio", "mes");

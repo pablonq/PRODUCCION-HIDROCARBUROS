@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
 export default function ProduccionOilRecurso() {
-  const [produccionShale, setProduccionShale] = useState([]);
+  const [produccionShaleMensual, setProduccionShaleMensual] = useState([]);
+  const [produccionShaleAnual, setProduccionShaleAnual] = useState([]);
 
   const option = {
     title: {
@@ -142,19 +143,24 @@ export default function ProduccionOilRecurso() {
   async function loadProduccionPetroleoShale() {
     try {
       const response = await fetch(
-        "/api/produccion?fluidoId=1&tipoRecursoId=2&subTipoRecursoId=2"
+        "/api/produccion?fluidoId=1"
       );
       const data = await response.json();
-      const dataProduccionShale = data
-        .filter(item => item.tipoRecurso.subTipoRecurso === "SHALE")
+      const dataProduccionShaleMensual = data
+        .filter(item => item.anio === 2025 && item.tipoRecurso.subTipoRecurso === "SHALE")
         .map(item => item.cantidad);
-      setProduccionShale(dataProduccionShale);
+      setProduccionShaleMensual(dataProduccionShaleMensual);
+
+      const dataProduccionShaleAnual = data
+        .filter(item => item.anio !== 2025 && item.tipoRecurso.subTipoRecurso === "SHALE")
+        .map(item => item.cantidad);
+      setProduccionShaleAnual(dataProduccionShaleAnual);
     } catch (error) {
       console.error("Error al cargar la produccion:", error);
     }
   }
 
-  async function loadProduccionPetroleoShale() {
+  async function loadProduccionPetroleoTight() {
     try {
       const response = await fetch(
         "/api/produccion?fluidoId=1&tipoRecursoId=2&subTipoRecursoId=3"
@@ -180,8 +186,8 @@ export default function ProduccionOilRecurso() {
   }, []);
 
   useEffect(() => {
-    console.log("produccionShale actualizado:", produccionShale);
-  }, [produccionShale]);
+    console.log("produccionShale actualizado:", produccionShaleMensual, produccionShaleAnual);
+  }, [produccionShaleMensual, produccionShaleAnual]);
   
   return (
     <>

@@ -21,11 +21,11 @@ export default function Produccion() {
         </div>
 
         <div className="w-full bg-blue-200">
-          <ProduccionGasEmpresa />
+          
         </div>
 
         <div className="w-full bg-blue-200">
-          <ProduccionOilEmpresa />
+          
         </div>
       </div>
     </div>

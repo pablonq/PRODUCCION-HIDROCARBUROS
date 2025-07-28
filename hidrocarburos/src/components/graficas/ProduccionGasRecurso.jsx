@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 
 export default function ProduccionGasRecurso() {
-  const [produccion, setProduccion] = useState([]);
+  const [prodGasConvMensual, setProdGasConvMensual] = useState([]);
+  const [prodGasConvAnual, setProdGasConvAnual] = useState([]);
 
+  const [prodGasShaleMensual, setProdGasShaleMensual] = useState([]);
+  const [prodGasShaleAnual, setProdGasShaleAnual] = useState([]);
+
+  const [prodGasTightMensual, setProdGasTightMensual] = useState([]);
+  const [prodGasTightAnual, setProdGasTightAnual] = useState([]);
+
+  
   const option = {
     title: {
-      text: 'Stacked Area Chart'
+      text: 'Produccion Gas Recurso'
 
     },
     tooltip: {
@@ -19,7 +27,7 @@ export default function ProduccionGasRecurso() {
       }
     },
     legend: {
-      data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+      data: ['Gas Convencional', 'Gas Shale', 'Tight Gas']
     },
     toolbox: {
       feature: {
@@ -71,19 +79,21 @@ export default function ProduccionGasRecurso() {
     ],
     series: [
       {
-        name: 'Convencional',
+        name: 'Gas Convencional',
         smooth: true,
         type: 'line',
 
         stack: 'Total',
-        areaStyle: {},
+        areaStyle: {
+          opacity: 0.5,
+        },
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 120, 132, 101, 134, 90, 230, 210]
+        data: prodGasConvMensual
       },
       {
-        name: 'Shale Gas',
+        name: 'Gas Shale',
         type: 'line',
         stack: 'Total',
         smooth: true,
@@ -91,64 +101,150 @@ export default function ProduccionGasRecurso() {
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 220, 182, 191, 234, 290, 330, 310]
+        data: prodGasShaleMensual
       },
       {
         name: 'Tight Gas',
         type: 'line',
         stack: 'Total',
+        label: {
+          show: true,
+          position: 'top'
+        },
         smooth: true,
         areaStyle: {},
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 150, 232, 201, 154, 190, 330, 410]
+        data: prodGasTightMensual
       },
       
         
       {
-        name: 'Video Ads',
+        name: 'Gas Convencional',
         type: 'bar',
         stack: 'Total',
         areaStyle: {},
         emphasis: {
           focus: 'series'
         },
-        data: [50, 256, 125]
+        data: prodGasConvAnual
       },
+
       {
-        name: 'Convencional',
-        type: 'line',
-        smooth: true,
+        name: 'Gas Shale',
+        type: 'bar',
         stack: 'Total',
-        label: {
-          show: true,
-          position: 'top'
-        },
         areaStyle: {},
         emphasis: {
           focus: 'series'
         },
-        data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 820, 932, 901, 934, 1290, 1330, 1320]
-      }
+        data: prodGasShaleAnual
+      },
+      {
+        name: 'Tight Gas',
+        type: 'bar',
+        stack: 'Total',
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: prodGasTightAnual
+      },
+      // {
+      //   name: 'Gas Shale',
+      //   type: 'bar',
+      //   smooth: true,
+      //   stack: 'Total',
+      //   label: {
+      //     show: true,
+      //     position: 'top'
+      //   },
+      //   areaStyle: {},
+      //   emphasis: {
+      //     focus: 'series'
+      //   },
+      //   data: [null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 820, 932, 901, 934, 1290, 1330, 1320]
+      // }
     ]
   };
 
-    async function loadProduccionGasConvencional() {
-      try {
-        const response = await fetch('/api/produccion?fluidoId=2&tipoRecursoId=2');
-        const data = await response.json();
-        
-  
-        setProduccion(data);
-      } catch (error) {
-        console.error('Error al cargar la produccion:', error);
-      }
+  async function loadProdGasConv() {
+    try {
+      const response = await fetch(
+        "/api/produccion/recurso?fluidoId=2&tipoRecursoId=1"
+      );
+      const data = await response.json();
+      const dataProdGasConvMensual = [
+        ...Array(15).fill(null),
+        ...data
+        .filter(item => item.anio === 2025)
+        .map(item => item.cantidad)
+      ];
+      setProdGasConvMensual(dataProdGasConvMensual);
+
+      const dataProdGasConvAnual = data
+        .filter(item => item.anio !== 2025)
+        .map(item => item.cantidad);
+      setProdGasConvAnual(dataProdGasConvAnual);
+    } catch (error) {
+      console.error("Error al cargar la produccion:", error);
     }
+  }
+
+  async function loadProdGasShale() {
+    try {
+      const response = await fetch(
+        "/api/produccion/recurso?fluidoId=2&tipoRecursoId=2"
+      );
+      const data = await response.json();
+      const dataProdGasShaleMensual = [
+        ...Array(15).fill(null),
+        ...data
+        .filter(item => item.anio === 2025)
+        .map(item => item.cantidad)
+      ];
+      setProdGasShaleMensual(dataProdGasShaleMensual);
+
+      const dataProdGasShaleAnual = data
+        .filter(item => item.anio !== 2025)
+        .map(item => item.cantidad);
+      setProdGasShaleAnual(dataProdGasShaleAnual);
+    } catch (error) {
+      console.error("Error al cargar la produccion:", error);
+    }
+  }
+
+  async function loadProdGasTight() {
+    try {
+      const response = await fetch(
+        "/api/produccion/recurso?fluidoId=2&tipoRecursoId=3"
+      );
+      const data = await response.json();
+      const dataProdGasTightMensual = [
+        ...Array(15).fill(null),
+        ...data
+        .filter(item => item.anio === 2025)
+        .map(item => item.cantidad)
+      ];
+      setProdGasTightMensual(dataProdGasTightMensual);
+
+      const dataProdGasTightAnual = data
+        .filter(item => item.anio !== 2025)
+        .map(item => item.cantidad);
+      setProdGasTightAnual(dataProdGasTightAnual);
+    } catch (error) {
+      console.error("Error al cargar la produccion:", error);
+    }
+  }
+
+
   
     useEffect(() => {
       const fetchData = async () => {
-        await loadProduccionGasConvencional();
+        await loadProdGasConv();
+        await loadProdGasShale();
+        await loadProdGasTight();
       };
   
       fetchData();

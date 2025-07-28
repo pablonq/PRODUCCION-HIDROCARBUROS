@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
+
 export default function ProduccionOilRecurso() {
   const [prodOilConvMensual, setProdOilConvMensual] = useState([]);
   const [prodOilConvAnual, setProdOilConvAnual] = useState([]);
@@ -13,7 +14,7 @@ export default function ProduccionOilRecurso() {
 
   const option = {
     title: {
-      text: "Stacked Area Chart",
+      text: "Produccion Oil Recurso",
     },
     tooltip: {
       trigger: "axis",
@@ -25,7 +26,7 @@ export default function ProduccionOilRecurso() {
       },
     },
     legend: {
-      data: ["Email", "Union Ads", "Video Ads", "Direct", "Search Engine"],
+      data: ["Oil Convencional", "Oil Shale", "Oil Tight", "Oil Convencional", "Oil Shale", "Oil Tight"],
     },
     toolbox: {
       feature: {
@@ -77,7 +78,7 @@ export default function ProduccionOilRecurso() {
     ],
     series: [
       {
-        name: "Oil Convencional",
+        name: "Oil Convencional Mensual",
         smooth: true,
         type: "line",
 
@@ -86,10 +87,10 @@ export default function ProduccionOilRecurso() {
         emphasis: {
           focus: "series",
         },
-        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilConvMensual],
+        data: prodOilConvMensual,
       },
       {
-        name: "Oil Shale",
+        name: "Oil Shale Mensual",
         type: "line",
         stack: "Total",
         smooth: true,
@@ -97,30 +98,34 @@ export default function ProduccionOilRecurso() {
         emphasis: {
           focus: "series",
         },
-        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilShaleMensual],
+        data: prodOilShaleMensual,
       },
       {
-        name: "Oil Tight",
+        name: "Oil Tight Mensual",
         type: "line",
         stack: "Total",
+        label: {
+          show: true,
+          position: "top",
+        },
         smooth: true,
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: [null, null, null, 150, 232, 201, 154, 190, 330, 410],
+        data: prodOilTightMensual,
       },
-      {
-        name: "Direct",
-        type: "line",
-        stack: "Total",
-        smooth: true,
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        data: [null, null, null, 320, 332, 301, 334, 390, 330, 320],
-      },
+      // {
+      //   name: "Direct",
+      //   type: "line",
+      //   stack: "Total",
+      //   smooth: true,
+      //   areaStyle: {},
+      //   emphasis: {
+      //     focus: "series",
+      //   },
+      //   data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, prodOilConvMensual],
+      // },
       {
         name: "Oil Convencional",
         type: "bar",
@@ -151,21 +156,21 @@ export default function ProduccionOilRecurso() {
         },
         data: prodOilShaleAnual,
       },
-      {
-        name: "Oil Convencional",
-        type: "line",
-        smooth: true,
-        stack: "Total",
-        label: {
-          show: true,
-          position: "top",
-        },
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilConvAnual],
-      },
+      // {
+      //   name: "Oil Convencional",
+      //   type: "line",
+      //   smooth: true,
+      //   stack: "Total",
+      //   label: {
+      //     show: true,
+      //     position: "top",
+      //   },
+      //   areaStyle: {},
+      //   emphasis: {
+      //     focus: "series",
+      //   },
+      //   data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,prodOilConvAnual],
+      // },
     ],
   };
 
@@ -175,9 +180,12 @@ export default function ProduccionOilRecurso() {
         "/api/produccion/recurso?fluidoId=1&tipoRecursoId=1"
       );
       const data = await response.json();
-      const dataProdOilConvMensual = data
+      const dataProdOilConvMensual = [
+        ...Array(15).fill(null),
+        ...data
         .filter(item => item.anio === 2025)
-        .map(item => item.cantidad);
+        .map(item => item.cantidad)
+      ];
       setProdOilConvMensual(dataProdOilConvMensual);
 
       const dataProdOilConvAnual = data
@@ -195,9 +203,11 @@ export default function ProduccionOilRecurso() {
         "/api/produccion/recurso?fluidoId=1&tipoRecursoId=2"
       );
       const data = await response.json();
-      const dataProdOilShaleMensual = data
+      const dataProdOilShaleMensual = [
+        ...Array(15).fill(null),
+        ...data
         .filter(item => item.anio === 2025)
-        .map(item => item.cantidad);
+        .map(item => item.cantidad)];
       setProdOilShaleMensual(dataProdOilShaleMensual);
 
       const dataProdOilShaleAnual = data
@@ -215,9 +225,12 @@ export default function ProduccionOilRecurso() {
         "/api/produccion/recurso?fluidoId=1&tipoRecursoId=3"
       );
       const data = await response.json();
-      const dataProdOilTightMensual = data
+      const dataProdOilTightMensual = [
+        ...Array(15).fill(null),
+        ...data
         .filter(item => item.anio === 2025)
-        .map(item => item.cantidad);
+        .map(item => item.cantidad)
+      ];
       setProdOilTightMensual(dataProdOilTightMensual);
 
       const dataProdOilTightAnual = data
@@ -240,9 +253,9 @@ export default function ProduccionOilRecurso() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("produccion Oil Convencional:", prodOilConvMensual,prodOilConvAnual,"Produccion Oil Shale:", prodOilShaleMensual, prodOilShaleAnual,"Produccion Oil Tight:", prodOilTightMensual, prodOilTightAnual);
-  }, [prodOilConvMensual, prodOilConvAnual,prodOilShaleMensual, prodOilShaleAnual,prodOilTightMensual, prodOilTightAnual]);
+  // useEffect(() => {
+  //   console.log("produccion Oil Convencional:", (prodOilConvMensual),prodOilConvAnual,"Produccion Oil Shale:", prodOilShaleMensual, prodOilShaleAnual,"Produccion Oil Tight:", prodOilTightMensual, prodOilTightAnual);
+  // }, [prodOilConvMensual, prodOilConvAnual,prodOilShaleMensual, prodOilShaleAnual,prodOilTightMensual, prodOilTightAnual]);
   
   return (
     <>

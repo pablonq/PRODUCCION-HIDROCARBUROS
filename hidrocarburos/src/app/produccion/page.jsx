@@ -4,6 +4,7 @@ import ProduccionGasRecurso from "@/components/graficas/ProduccionGasRecurso";
 import ProduccionOilRecurso from "@/components/graficas/ProduccionOilRecurso";
 import ProduccionGasEmpresa from "@/components/graficas/ProduccionGasEmpresa";
 import ProduccionOilEmpresa from "@/components/graficas/ProduccionOilEmpresa";
+import ProduccionGasArea from "@/components/graficas/ProduccionGasArea";
 
 export default function Produccion() {
   return (
@@ -21,7 +22,7 @@ export default function Produccion() {
         </div>
 
         <div className="w-full bg-blue-200">
-          
+          <ProduccionGasArea />
         </div>
 
         <div className="w-full bg-blue-200">

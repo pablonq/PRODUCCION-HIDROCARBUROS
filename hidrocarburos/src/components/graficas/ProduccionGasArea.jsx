@@ -9,6 +9,7 @@ export default function ProduccionGasArea() {
   const [areaMensual3, setAreaMensual3] = useState(null);
   const [areaMensual4, setAreaMensual4] = useState(null);
   const [areaMensual5, setAreaMensual5] = useState(null);
+  const [areaAnual, setAreaAnual] = useState([]);
   const [areaAnual2024, setAreaAnual2024] = useState([]);
   const [areaAnual2023, setAreaAnual2023] = useState([]);
   const [areaAnual2022, setAreaAnual2022] = useState([]);
@@ -155,14 +156,14 @@ export default function ProduccionGasArea() {
         data: areaMensual5,
       },
        {
-        name: areaAnual2024?.nombreArea || "Area 2010",
+        name: "Area",
         type: "bar",
         stack: "Total",
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: areaAnual2024,
+        data: areaAnual,
       },
 
       /* {
@@ -253,51 +254,59 @@ export default function ProduccionGasArea() {
     try {
       const response = await fetch("/api/produccion/area?fluidoId=2");
       const data = await response.json();
-      const data2024 = data.filter(item => item.anio === 2024);
-      console.log("Data 2024", data2024);
-      setAreaAnual2024(data2024.cantidad);
+      const dataAnual = data.filter(item => item.anio !== 2025);
+      
+      const dataAnualArea = dataAnual.map(item => ({
+        nombreArea: item.area.nombreArea,
+        anio: item.anio,
+        cantidad: item.cantidad}));
+    
+      setAreaAnual(dataAnualArea);
+      
+      
+      
 
-      const data2023 = data.filter(item => item.anio === 2023);
-      setAreaAnual2023(data2023);
+      // const data2023 = data.filter(item => item.anio === 2023);
+      // setAreaAnual2023(data2023);
 
-      const data2022 = data.filter(item => item.anio === 2022);
-      setAreaAnual2022(data2022);
+      // const data2022 = data.filter(item => item.anio === 2022);
+      // setAreaAnual2022(data2022);
 
-      const data2021 = data.filter(item => item.anio === 2021);
-      setAreaAnual2021(data2021);
+      // const data2021 = data.filter(item => item.anio === 2021);
+      // setAreaAnual2021(data2021);
 
-      const data2020 = data.filter(item => item.anio === 2020);
-      setAreaAnual2020(data2020);
+      // const data2020 = data.filter(item => item.anio === 2020);
+      // setAreaAnual2020(data2020);
 
-      const data2019 = data.filter(item => item.anio === 2019);
-      setAreaAnual2019(data2019);
+      // const data2019 = data.filter(item => item.anio === 2019);
+      // setAreaAnual2019(data2019);
 
-      const data2018 = data.filter(item => item.anio === 2018);
-      setAreaAnual2018(data2018);
+      // const data2018 = data.filter(item => item.anio === 2018);
+      // setAreaAnual2018(data2018);
 
-      const data2017 = data.filter(item => item.anio === 2017);
-      setAreaAnual2017(data2017);
+      // const data2017 = data.filter(item => item.anio === 2017);
+      // setAreaAnual2017(data2017);
 
-      const data2016 = data.filter(item => item.anio === 2016);
-      setAreaAnual2016(data2016);
+      // const data2016 = data.filter(item => item.anio === 2016);
+      // setAreaAnual2016(data2016);
 
-      const data2015 = data.filter(item => item.anio === 2015);
-      setAreaAnual2015(data2015);
+      // const data2015 = data.filter(item => item.anio === 2015);
+      // setAreaAnual2015(data2015);
 
-      const data2014 = data.filter(item => item.anio === 2014);
-      setAreaAnual2014(data2014);
+      // const data2014 = data.filter(item => item.anio === 2014);
+      // setAreaAnual2014(data2014);
 
-      const data2013 = data.filter(item => item.anio === 2013);
-      setAreaAnual2013(data2013);
+      // const data2013 = data.filter(item => item.anio === 2013);
+      // setAreaAnual2013(data2013);
 
-      const data2012 = data.filter(item => item.anio === 2012);
-      setAreaAnual2012(data2012);
+      // const data2012 = data.filter(item => item.anio === 2012);
+      // setAreaAnual2012(data2012);
 
-      const data2011 = data.filter(item => item.anio === 2011);
-      setAreaAnual2011(data2011);
+      // const data2011 = data.filter(item => item.anio === 2011);
+      // setAreaAnual2011(data2011);
 
-      const data2010 = data.filter(item => item.anio === 2010);
-      setAreaAnual2010(data2010);
+      // const data2010 = data.filter(item => item.anio === 2010);
+      // setAreaAnual2010(data2010);
 
 
 
@@ -321,9 +330,9 @@ export default function ProduccionGasArea() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("produccion Gas ", areaMensual1, areaMensual2, areaMensual3, areaMensual4, areaMensual5);
-  }, [areaMensual1, areaMensual2, areaMensual3, areaMensual4, areaMensual5]);
+  // useEffect(() => {
+  //   console.log("produccion Gas ", areaMensual1, areaMensual2, areaMensual3, areaMensual4, areaMensual5);
+  // }, [areaMensual1, areaMensual2, areaMensual3, areaMensual4, areaMensual5]);
 
 
   return (

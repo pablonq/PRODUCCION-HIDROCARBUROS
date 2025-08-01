@@ -9,22 +9,12 @@ export default function ProduccionGasArea() {
   const [areaMensual3, setAreaMensual3] = useState(null);
   const [areaMensual4, setAreaMensual4] = useState(null);
   const [areaMensual5, setAreaMensual5] = useState(null);
-  const [areaAnual, setAreaAnual] = useState([]);
-  const [areaAnual2024, setAreaAnual2024] = useState([]);
-  const [areaAnual2023, setAreaAnual2023] = useState([]);
-  const [areaAnual2022, setAreaAnual2022] = useState([]);
-  const [areaAnual2021, setAreaAnual2021] = useState([]);
-  const [areaAnual2020, setAreaAnual2020] = useState([]);
-  const [areaAnual2019, setAreaAnual2019] = useState([]);
-  const [areaAnual2018, setAreaAnual2018] = useState([]);
-  const [areaAnual2017, setAreaAnual2017] = useState([]);
-  const [areaAnual2016, setAreaAnual2016] = useState([]);
-  const [areaAnual2015, setAreaAnual2015] = useState([]);
-  const [areaAnual2014, setAreaAnual2014] = useState([]);
-  const [areaAnual2013, setAreaAnual2013] = useState([]);
-  const [areaAnual2012, setAreaAnual2012] = useState([]);
-  const [areaAnual2011, setAreaAnual2011] = useState([]);
-  const [areaAnual2010, setAreaAnual2010] = useState([]);
+  const [areaAnual1, setAreaAnual1] = useState([]);
+  const [areaAnual2, setAreaAnual2] = useState([]);
+  const [areaAnual3, setAreaAnual3] = useState([]);
+  const [areaAnual4, setAreaAnual4] = useState([]);
+  const [areaAnual5, setAreaAnual5] = useState([]);
+
 
 
 
@@ -155,37 +145,60 @@ export default function ProduccionGasArea() {
         },
         data: areaMensual5,
       },
-       {
-        name: "Area",
+      {
+        name: "Area1",
         type: "bar",
         stack: "Total",
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: areaAnual,
+        data: areaAnual1.map(item => item.cantidad),
       },
 
-      /* {
-        name: "Gas Shale",
+      {
+        name: "Area 2",
         type: "bar",
         stack: "Total",
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: prodGasShaleAnual,
+        data: areaAnual2.map(item => item.cantidad),
+      },
+
+      {
+        name: "Area 3",
+        type: "bar",
+        stack: "Total",
+        areaStyle: {},
+        emphasis: {
+          focus: "series",
+        },
+        data: areaAnual3.map(item => item.cantidad),
+      },
+
+      {
+        name: "Area 4",
+        type: "bar",
+        stack: "Total",
+        areaStyle: {},
+        emphasis: {
+          focus: "series",
+        },
+        data: areaAnual4.map(item => item.cantidad),
       },
       {
-        name: "Tight Gas",
+        name: "Area 5",
         type: "bar",
         stack: "Total",
         areaStyle: {},
         emphasis: {
           focus: "series",
         },
-        data: prodGasTightAnual,
+        data: areaAnual5.map(item => item.cantidad),
       },
+      /*
       {
         name: 'Gas Shale',
         type: 'bar',
@@ -230,12 +243,12 @@ export default function ProduccionGasArea() {
         .slice(0, 5);
 
 
-      const area1 = resultado[0] ? [...Array(15).fill(null),...data2025.filter(item => item.areaId === resultado[0].areaId).map(item => item.cantidad)] : [];
-      const area2 = resultado[1] ? [...Array(15).fill(null),...data2025.filter(item => item.areaId === resultado[1].areaId).map(item => item.cantidad)] : [];
-      const area3 = resultado[2] ? [...Array(15).fill(null),...data2025.filter(item => item.areaId === resultado[2].areaId).map(item => item.cantidad)] : [];
-      const area4 = resultado[3] ? [...Array(15).fill(null),...data2025.filter(item => item.areaId === resultado[3].areaId).map(item => item.cantidad)] : [];
-      const area5 = resultado[4] ? [...Array(15).fill(null),...data2025.filter(item => item.areaId === resultado[4].areaId).map(item => item.cantidad)] : [];
-      
+      const area1 = resultado[0] ? [...Array(15).fill(null), ...data2025.filter(item => item.areaId === resultado[0].areaId).map(item => item.cantidad)] : [];
+      const area2 = resultado[1] ? [...Array(15).fill(null), ...data2025.filter(item => item.areaId === resultado[1].areaId).map(item => item.cantidad)] : [];
+      const area3 = resultado[2] ? [...Array(15).fill(null), ...data2025.filter(item => item.areaId === resultado[2].areaId).map(item => item.cantidad)] : [];
+      const area4 = resultado[3] ? [...Array(15).fill(null), ...data2025.filter(item => item.areaId === resultado[3].areaId).map(item => item.cantidad)] : [];
+      const area5 = resultado[4] ? [...Array(15).fill(null), ...data2025.filter(item => item.areaId === resultado[4].areaId).map(item => item.cantidad)] : [];
+
 
       //Guardar cada área en su hook correspondiente
       setAreaMensual1(area1);
@@ -255,68 +268,45 @@ export default function ProduccionGasArea() {
       const response = await fetch("/api/produccion/area?fluidoId=2");
       const data = await response.json();
       const dataAnual = data.filter(item => item.anio !== 2025);
-      
+
       const dataAnualArea = dataAnual.map(item => ({
         nombreArea: item.area.nombreArea,
         anio: item.anio,
-        cantidad: item.cantidad}));
-    
-      setAreaAnual(dataAnualArea);
-      
-      
-      
+        cantidad: item.cantidad,
+      }));
 
-      // const data2023 = data.filter(item => item.anio === 2023);
-      // setAreaAnual2023(data2023);
+      const grupos = dividirEnGrupos(dataAnualArea, 15);
 
-      // const data2022 = data.filter(item => item.anio === 2022);
-      // setAreaAnual2022(data2022);
+      // Acceso a los 5 grupos
+      const grupo1 = grupos[0] || [];
+      setAreaAnual1(grupo1)
+      const grupo2 = grupos[1] || [];
+      setAreaAnual2(grupo2)
+      const grupo3 = grupos[2] || [];
+      setAreaAnual3(grupo3)
+      const grupo4 = grupos[3] || [];
+      setAreaAnual4(grupo4)
+      const grupo5 = grupos[4] || [];
+      setAreaAnual5(grupo5)
 
-      // const data2021 = data.filter(item => item.anio === 2021);
-      // setAreaAnual2021(data2021);
-
-      // const data2020 = data.filter(item => item.anio === 2020);
-      // setAreaAnual2020(data2020);
-
-      // const data2019 = data.filter(item => item.anio === 2019);
-      // setAreaAnual2019(data2019);
-
-      // const data2018 = data.filter(item => item.anio === 2018);
-      // setAreaAnual2018(data2018);
-
-      // const data2017 = data.filter(item => item.anio === 2017);
-      // setAreaAnual2017(data2017);
-
-      // const data2016 = data.filter(item => item.anio === 2016);
-      // setAreaAnual2016(data2016);
-
-      // const data2015 = data.filter(item => item.anio === 2015);
-      // setAreaAnual2015(data2015);
-
-      // const data2014 = data.filter(item => item.anio === 2014);
-      // setAreaAnual2014(data2014);
-
-      // const data2013 = data.filter(item => item.anio === 2013);
-      // setAreaAnual2013(data2013);
-
-      // const data2012 = data.filter(item => item.anio === 2012);
-      // setAreaAnual2012(data2012);
-
-      // const data2011 = data.filter(item => item.anio === 2011);
-      // setAreaAnual2011(data2011);
-
-      // const data2010 = data.filter(item => item.anio === 2010);
-      // setAreaAnual2010(data2010);
-
-
-
-
-
-
+      // Puedes usarlos como gustes, ejemplo:
+      /* console.log("Grupo 1:", grupo1);
+      console.log("Grupo 2:", grupo2);
+      console.log("Grupo 3:", grupo3);
+      console.log("Grupo 4:", grupo4);
+      console.log("Grupo 5:", grupo5); */
 
     } catch (error) {
       console.error("Error al cargar la produccion:", error);
     }
+  }
+
+  function dividirEnGrupos(array, tamañoGrupo) {
+    const resultado = [];
+    for (let i = 0; i < array.length; i += tamañoGrupo) {
+      resultado.push(array.slice(i, i + tamañoGrupo));
+    }
+    return resultado;
   }
 
 

@@ -5,6 +5,7 @@ import ProduccionOilRecurso from "@/components/graficas/ProduccionOilRecurso";
 import ProduccionGasEmpresa from "@/components/graficas/ProduccionGasEmpresa";
 import ProduccionOilEmpresa from "@/components/graficas/ProduccionOilEmpresa";
 import ProduccionGasArea from "@/components/graficas/ProduccionGasArea";
+import ProduccionOilArea from "@/components/graficas/ProduccionOilArea";
 
 export default function Produccion() {
   return (
@@ -12,7 +13,7 @@ export default function Produccion() {
       <h1 className="text-2xl font-bold ">
         Bienvenido a la página de Producción
       </h1>
-      <div className="grid grid-rows-2 grid-cols-2 gap-x-10 gap-y-4 w-full p-2">
+      <div className="grid grid-rows-3 grid-cols-2 gap-x-10 gap-y-4 w-full p-2">
         <div className="w-full bg-blue-200">
           <ProduccionGasRecurso />
         </div>
@@ -26,8 +27,15 @@ export default function Produccion() {
         </div>
 
         <div className="w-full bg-blue-200">
-          
+          <ProduccionOilArea />
         </div>
+        <div className="w-full bg-blue-200">
+          <ProduccionGasEmpresa />
+        </div>
+        <div className="w-full bg-blue-200">
+          <ProduccionOilEmpresa />
+        </div>
+
       </div>
     </div>
   );

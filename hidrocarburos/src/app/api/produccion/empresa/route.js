@@ -23,10 +23,6 @@ export async function GET(request) {
       include: {
         empresa: { select: { nombreEmpresa: true } },
         fluido: { select: { tipoFluido: true } },
-      },
-      orderBy: {
-        anio: "desc",
-        mes: "desc"
       }
     });
 

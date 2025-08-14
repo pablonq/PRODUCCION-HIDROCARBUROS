@@ -42,7 +42,7 @@ model Cuenca {
 model PozoRecurso {
   id            Int         @id @default(autoincrement())
   cantidad      Int
-  mes           Int
+  mes           Int?
   anio          Int
   observaciones String?
   tipoRecursoId Int
@@ -66,7 +66,7 @@ model Sistema {
 model PozoSistema {
   id            Int         @id @default(autoincrement())
   cantidad      Int
-  mes           Int
+  mes           Int?
   anio          Int
   observaciones String?
   sistemaId Int

@@ -47,8 +47,8 @@ async function main() {
       { tipoFluido: 'AGUA', comentario: null }
     ]
   });
-// 6. Crear Pozo
-await prisma.pozo.createMany({
+// 6. Crear Pozo Recurso
+await prisma.pozoRecurso.createMany({
   data: [
     { cantidad: 100,
       mes: 1,
@@ -80,7 +80,429 @@ await prisma.pozo.createMany({
       tipoRecursoId: 2,
       fluidoId: 2,
       
-    }
+    },
+    { cantidad: 500,
+      mes: 5,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 2,
+      fluidoId: 2,
+      
+    },
+    { cantidad: 600,
+      mes: 6,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 2,
+      fluidoId: 2,
+      
+    },
+    { cantidad: 700,
+      mes: 7,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 2,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 800,
+      mes: null,
+      anio: 2024,
+      observaciones: null,
+      tipoRecursoId: 2,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 900,
+      mes: null,
+      anio: 2023,
+      observaciones: null,
+      tipoRecursoId: 2,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 100,
+      mes: 1,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 200,
+      mes: 2,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 300,
+      mes: 3,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 400,
+      mes: 4,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 500,
+      mes: 5,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 600,
+      mes: 6,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 700,
+      mes: 7,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 800,
+      mes: null,
+      anio: 2024,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 900,
+      mes: null,
+      anio: 2023,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 100,
+      mes: 1,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 200,
+      mes: 2,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 300,
+      mes: 3,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 400,
+      mes: 4,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 500,
+      mes: 5,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 600,
+      mes: 6,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 700,
+      mes: 7,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 800,
+      mes: null,
+      anio: 2024,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 900,
+      mes: null,
+      anio: 2023,
+      observaciones: null,
+      tipoRecursoId: 3,
+      fluidoId: 2,
+      
+    },
+    {
+      cantidad: 100,
+      mes: 1,
+      anio: 2025,
+      observaciones: null,
+      tipoRecursoId: 1,
+      fluidoId: 1,
+      },
+      {
+        cantidad: 200,
+        mes: 2,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 300,
+        mes: 3,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 400,
+        mes: 4,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 500,
+        mes: 5,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 600,
+        mes: 6,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 700,
+        mes: 7,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 800,
+        mes: null,
+        anio: 2024,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 900,
+        mes: null,
+        anio: 2023,
+        observaciones: null,
+        tipoRecursoId: 1,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 800,
+        mes: 1,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 200,
+        mes: 2,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 300,
+        mes: 3,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 400,
+        mes: 4,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 500,
+        mes: 5,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 600,
+        mes: 6,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 700,
+        mes: 7,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 800,
+        mes: null,
+        anio: 2024,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 900,
+        mes: null,
+        anio: 2023,
+        observaciones: null,
+        tipoRecursoId: 2,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 1000,
+        mes: 1,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 2000,
+        mes: 2,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 3000,
+        mes: 3,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 4000,
+        mes: 4,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 5000,
+        mes: 5,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 6000,
+        mes: 6,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 7000,
+        mes: 7,
+        anio: 2025,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 8000,
+        mes: null,
+        anio: 2024,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+      {
+        cantidad: 9000,
+        mes: null,
+        anio: 2023,
+        observaciones: null,
+        tipoRecursoId: 3,
+        fluidoId: 1,
+      },
+
+    
   ]
 });
   // 7. Crear Produccion
@@ -466,6 +888,8 @@ await prisma.pozo.createMany({
       {cantidad: 222000, mes: null, anio: 2010, observaciones: null, fluidoId:2, areaId: 3},
     ]
   });
+  // 8. Crear Sistema
+  
 }
 
 main()

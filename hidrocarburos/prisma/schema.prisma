@@ -39,7 +39,7 @@ model Cuenca {
   areas        Area[]
 }
 
-model Pozo {
+model PozoRecurso {
   id            Int         @id @default(autoincrement())
   cantidad      Int
   mes           Int
@@ -51,6 +51,29 @@ model Pozo {
   fluido        Fluido      @relation(fields: [fluidoId], references: [id])
 
   @@index([tipoRecursoId]) // Índice para buscar pozos por tipo de recurso
+}
+
+model Sistema {
+  id            Int     @id @default(autoincrement())
+  nombreSistema String
+  descripcion    String?
+  pozos         PozoSistema[]
+  
+
+  @@index([nombreSistema]) // Índice para búsquedas rápidas por nombre de sistema
+}
+
+model PozoSistema {
+  id            Int         @id @default(autoincrement())
+  cantidad      Int
+  mes           Int
+  anio          Int
+  observaciones String?
+  sistemaId Int
+  sistema   Sistema @relation(fields: [sistemaId], references: [id])
+  
+
+  @@index([sistemaId]) // Índice para buscar pozos por tipo de recurso
 }
 
 model ProduccionEmpresa {
@@ -103,7 +126,7 @@ model TipoRecurso {
   comentario     String?
 
   produccion ProduccionRecurso[]
-  pozos      Pozo[]
+  pozos      PozoRecurso[]
 }
 
 model Fluido {
@@ -114,5 +137,5 @@ model Fluido {
   produccionArea    ProduccionArea[]
   produccionEmpresa ProduccionEmpresa[]
 
-  pozos Pozo[]
+  pozos PozoRecurso[]
 }

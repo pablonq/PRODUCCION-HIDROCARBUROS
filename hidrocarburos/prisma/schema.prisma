@@ -56,7 +56,7 @@ model PozoRecurso {
 model Sistema {
   id            Int     @id @default(autoincrement())
   nombreSistema String
-  descripcion    String?
+  sigla    String
   pozos         PozoSistema[]
   
 

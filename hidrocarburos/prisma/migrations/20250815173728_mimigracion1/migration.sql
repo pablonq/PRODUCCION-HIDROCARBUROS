@@ -24,16 +24,34 @@ CREATE TABLE "Cuenca" (
 );
 
 -- CreateTable
-CREATE TABLE "Pozo" (
+CREATE TABLE "PozoRecurso" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "cantidad" INTEGER NOT NULL,
-    "mes" INTEGER NOT NULL,
+    "mes" INTEGER,
     "anio" INTEGER NOT NULL,
     "observaciones" TEXT,
     "tipoRecursoId" INTEGER NOT NULL,
     "fluidoId" INTEGER NOT NULL,
-    CONSTRAINT "Pozo_tipoRecursoId_fkey" FOREIGN KEY ("tipoRecursoId") REFERENCES "TipoRecurso" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Pozo_fluidoId_fkey" FOREIGN KEY ("fluidoId") REFERENCES "Fluido" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "PozoRecurso_tipoRecursoId_fkey" FOREIGN KEY ("tipoRecursoId") REFERENCES "TipoRecurso" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "PozoRecurso_fluidoId_fkey" FOREIGN KEY ("fluidoId") REFERENCES "Fluido" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Sistema" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "nombreSistema" TEXT NOT NULL,
+    "sigla" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "PozoSistema" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "cantidad" INTEGER NOT NULL,
+    "mes" INTEGER,
+    "anio" INTEGER NOT NULL,
+    "observaciones" TEXT,
+    "sistemaId" INTEGER NOT NULL,
+    CONSTRAINT "PozoSistema_sistemaId_fkey" FOREIGN KEY ("sistemaId") REFERENCES "Sistema" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -103,7 +121,13 @@ CREATE INDEX "Area_cuencaId_idx" ON "Area"("cuencaId");
 CREATE INDEX "Area_empresaId_idx" ON "Area"("empresaId");
 
 -- CreateIndex
-CREATE INDEX "Pozo_tipoRecursoId_idx" ON "Pozo"("tipoRecursoId");
+CREATE INDEX "PozoRecurso_tipoRecursoId_idx" ON "PozoRecurso"("tipoRecursoId");
+
+-- CreateIndex
+CREATE INDEX "Sistema_nombreSistema_idx" ON "Sistema"("nombreSistema");
+
+-- CreateIndex
+CREATE INDEX "PozoSistema_sistemaId_idx" ON "PozoSistema"("sistemaId");
 
 -- CreateIndex
 CREATE INDEX "ProduccionEmpresa_anio_mes_idx" ON "ProduccionEmpresa"("anio", "mes");

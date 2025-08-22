@@ -46,6 +46,12 @@ export default function PozosSistema() {
   ]
 };
 
+async function loadPozoSistema(){
+  try{
+    const response = await fetch('/api/pozos/sistema');
+  }
+}
+
   return (
     <>
       <ReactECharts option={option} style={{ height: 400, width: '100%' }} />

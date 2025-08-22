@@ -13,13 +13,15 @@ export async function GET(request) {
   const where = {};
   if (anio) where.anio = Number(anio);
   if (mes) where.mes = Number(mes);
-  if (sistemaId) where.sistemaId = Number(sistemaId);
+  if (tipoRecursoId) where.tipoRecursoId = Number(tipoRecursoId);
+  if (fluidoId) where.fluidoId = Number(fluidoId);
 
   try {
   const pozoRecurso = await prisma.pozoRecurso.findMany({
     where,
     include: {
-      sistema: { select: {nombreSistema: true}},
+      Recurso: { select: {nombreSistema: true}},
+      Fluido: { select: {tipoFluido: true}},
     }
 
   });

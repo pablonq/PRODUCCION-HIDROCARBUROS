@@ -1,5 +1,6 @@
 
 import ReactECharts from 'echarts-for-react';
+import { useEffect } from 'react';
 
 
 export default function PozosSistema() {
@@ -49,8 +50,20 @@ export default function PozosSistema() {
 async function loadPozoSistema(){
   try{
     const response = await fetch('/api/pozos/sistema');
+    const data = await response.json();
+    const data2025 = data.filter(item => item.anio === 2025 && item.mes === 8);
+    console.log(data2025);
+  } catch (error) {
+    console.error('Error fetching pozo sistema data:', error);
   }
 }
+useEffect(() => {
+    const fetchData = async () => {
+      await loadPozoSistema();
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>

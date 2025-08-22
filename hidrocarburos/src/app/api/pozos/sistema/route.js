@@ -16,7 +16,7 @@ export async function GET(request) {
   if (sistemaId) where.sistemaId = Number(sistemaId);
 
   try {
-  const pozoRecurso = await prisma.pozoRecurso.findMany({
+  const pozoSistema = await prisma.pozoSistema.findMany({
     where,
     include: {
       sistema: { select: {nombreSistema: true}},
@@ -24,7 +24,7 @@ export async function GET(request) {
 
   });
 
-  return NextResponse.json(pozoRecurso);
+  return NextResponse.json(pozoSistema);
 } catch (error) {
   console.error("Error al obtener recursos por pozo:", error);
   return NextResponse.json(

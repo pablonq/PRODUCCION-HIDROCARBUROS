@@ -20,7 +20,7 @@ export async function GET(request) {
     where,
     include: {
       sistema: { select: {nombreSistema: true}},
-    }
+    },
 
   });
 

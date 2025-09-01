@@ -1,9 +1,10 @@
 
 import ReactECharts from 'echarts-for-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export default function PozosSistema() {
+  const [pozoSistema, setpozoSistema] = useState([]);
   const option = {
   tooltip: {
     trigger: 'item'
@@ -37,11 +38,15 @@ export default function PozosSistema() {
         show: false
       },
       data: [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' }
+        ...pozoSistema.map(item => ({
+          value: item.cantidad,
+          name: item.area.nombreArea
+        })),
+        // { value: 1048, name: 'Search Engine' },
+        // { value: 735, name: 'Direct' },
+        // { value: 580, name: 'Email' },
+        // { value: 484, name: 'Union Ads' },
+        // { value: 300, name: 'Video Ads' }
       ]
     }
   ]
@@ -49,9 +54,11 @@ export default function PozosSistema() {
 
 async function loadPozoSistema(){
   try{
-    const response = await fetch('/api/pozos/sistema');
+    const response = await fetch("/api/pozos/sistema");
     const data = await response.json();
+    console.log(data);
     const data2025 = data.filter(item => item.anio === 2025 && item.mes === 8);
+    setpozoSistema(data2025);
     console.log(data2025);
   } catch (error) {
     console.error('Error fetching pozo sistema data:', error);

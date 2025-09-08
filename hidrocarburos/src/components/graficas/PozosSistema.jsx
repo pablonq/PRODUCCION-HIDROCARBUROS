@@ -15,9 +15,9 @@ export default function PozosSistema() {
   },
   series: [
     {
-      name: 'Access From',
+      name: 'Sistemas',
       type: 'pie',
-      radius: ['40%', '70%'],
+      radius: ['45%', '70%'],
       avoidLabelOverlap: false,
       padAngle: 5,
       itemStyle: {
@@ -38,15 +38,15 @@ export default function PozosSistema() {
         show: false
       },
       data: [
-        ...pozoSistema.map(item => ({
-          value: item.cantidad,
-          name: item.area.nombreArea
-        })),
-        // { value: 1048, name: 'Search Engine' },
-        // { value: 735, name: 'Direct' },
-        // { value: 580, name: 'Email' },
-        // { value: 484, name: 'Union Ads' },
-        // { value: 300, name: 'Video Ads' }
+         ...pozoSistema.map(item => ({
+           value: item.cantidad,
+           name: item.sistema.nombreSistema
+         })),
+        //  { value: 1048, name: 'Search Engine' },
+        //  { value: 735, name: 'Direct' },
+        //  { value: 580, name: 'Email' },
+        //  { value: 484, name: 'Union Ads' },
+        //  { value: 300, name: 'Video Ads' }
       ]
     }
   ]

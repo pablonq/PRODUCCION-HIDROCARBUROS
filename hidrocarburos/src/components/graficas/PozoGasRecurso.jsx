@@ -1,6 +1,26 @@
 
 
+import { useEffect } from "react";
+
 export default function PozoGasRecurso() {
+  async function loadPozoRecursoGas(){
+    try{
+      const response = await fetch("/api/pozos/recurso?fluidoId=2");
+      const data = await response.json();
+      console.log(data);
+      
+      
+    } catch (error) {
+      console.error('Error fetching pozo sistema data:', error);
+    }
+  }
+  useEffect(() => {
+      const fetchData = async () => {
+        await loadPozoRecursoGas();
+      };
+  
+      fetchData();
+    }, []);
 
   return (
     <>

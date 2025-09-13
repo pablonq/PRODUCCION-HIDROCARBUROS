@@ -7,7 +7,8 @@ export async function GET(request) {
     // Obtener parámetros de consulta
   const anio = searchParams.get("anio");
   const mes = searchParams.get("mes");
-  const sistemaId = searchParams.get("sistemaId");
+  const fluidoId = searchParams.get("fluidoId");
+  const tipoRecursoId = searchParams.get("tipoRecursoId");
   
   // Construir el objeto where
   const where = {};
@@ -20,9 +21,9 @@ export async function GET(request) {
   const pozoRecurso = await prisma.pozoRecurso.findMany({
     where,
     include: {
-      Recurso: { select: {nombreSistema: true}},
-      Fluido: { select: {tipoFluido: true}},
-    }
+      tipoRecurso: { select: { tipoRecurso: true, subTipoRecurso: true } },
+      fluido: { select: {tipoFluido: true}},
+    },
 
   });
 

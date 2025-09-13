@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 
 export default function PozoGasRecurso() {
-  async function loadPozoRecursoGas(){
+  async function loadPozoGasConv(){
     try{
-      const response = await fetch("/api/pozos/recurso?fluidoId=2");
+      const response = await fetch("/api/pozos/recurso?fluidoId=2&tipoRecursoId=1");
       const data = await response.json();
       console.log(data);
       
@@ -14,9 +14,32 @@ export default function PozoGasRecurso() {
       console.error('Error fetching pozo sistema data:', error);
     }
   }
+
+  async function loadPozoGasShale(){
+    try{
+      const response = await fetch("/api/pozos/recurso?fluidoId=2&tipoRecursoId=2");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching pozo sistema data:', error);
+    }
+  }
+
+  async function loadPozoGasTight(){
+    try{
+      const response = await fetch("/api/pozos/recurso?fluidoId=2&tipoRecursoId=3");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching pozo sistema data:', error);
+    }
+  }
+
   useEffect(() => {
       const fetchData = async () => {
-        await loadPozoRecursoGas();
+        await loadPozoGasConv();
+        await loadPozoGasShale();
+        await loadPozoGasTight();
       };
   
       fetchData();

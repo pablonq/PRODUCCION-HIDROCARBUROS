@@ -56,10 +56,10 @@ async function loadPozoSistema(){
   try{
     const response = await fetch("/api/pozos/sistema");
     const data = await response.json();
-    console.log(data);
+    
     const data2025 = data.filter(item => item.anio === 2025 && item.mes === 8);
     setpozoSistema(data2025);
-    console.log(data2025);
+    
   } catch (error) {
     console.error('Error fetching pozo sistema data:', error);
   }

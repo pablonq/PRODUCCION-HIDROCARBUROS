@@ -221,9 +221,7 @@ export default function ProduccionOilRecurso() {
 
   async function loadProdOilTight() {
     try {
-      const response = await fetch(
-        "/api/produccion/recurso?fluidoId=1&tipoRecursoId=3"
-      );
+      const response = await fetch("/api/produccion/recurso?fluidoId=1&tipoRecursoId=3");
       const data = await response.json();
       const dataProdOilTightMensual = [
         ...Array(15).fill(null),

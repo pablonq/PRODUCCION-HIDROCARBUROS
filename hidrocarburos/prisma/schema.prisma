@@ -139,3 +139,11 @@ model Fluido {
 
   pozos PozoRecurso[]
 }
+
+model Noticias {
+  id        Int      @id @default(autoincrement())
+  titulo    String
+  contenido String
+  imagenUrl String?
+  createdAt  DateTime @default(now())
+}

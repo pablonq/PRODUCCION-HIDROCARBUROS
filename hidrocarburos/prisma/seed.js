@@ -930,14 +930,14 @@ async function main() {
   });
 
   // 10. Crear Noticias
-  await prisma.noticia.createMany({
+  await prisma.noticias.createMany({
     data: [
-      { titulo: 'Producción de Petróleo Alcanza Nuevo Récord Trimestral', fecha: new Date(), contenido: 'Los datos del tercer trimestre muestran un incremento del 15% en la producción nacional.' },
-      { titulo: 'Nuevas Regulaciones Ambientales para Exploraciones', fecha: new Date(), contenido: 'El gobierno anuncia normativas más estrictas para proyectos de exploración offshore.' },
-      { titulo: 'Análisis del Mercado: Tendencias del Precio del Crudo', fecha: new Date(), contenido: 'Expertos proyectan estabilidad en los precios durante el último trimestre del año.' },
-      { titulo: 'Inversión en Tecnología para Extracción Sostenible', fecha: new Date(), contenido: 'Principales operadores destinan $2M para implementar tecnologías de reducción de emisiones.' },
-      { titulo: 'Exportaciones de Gas Natural Superan Expectativas', fecha: new Date(), contenido: 'Las exportaciones del mes de septiembre registran un crecimiento del 22% comparado con el año anterior.' },
-      { titulo: 'Actualización de Protocolos de Seguridad en Plataformas', fecha: new Date(), contenido: 'Nueva certificación obligatoria para todo el personal operativo en instalaciones offshore.' },
+      { titulo: 'Producción de Petróleo Alcanza Nuevo Récord Trimestral', contenido: 'Los datos del tercer trimestre muestran un incremento del 15% en la producción nacional.', imagenUrl: 'https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=800&q=80' },
+      { titulo: 'Nuevas Regulaciones Ambientales para Exploraciones', contenido: 'El gobierno anuncia normativas más estrictas para proyectos de exploración offshore.', imagenUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80' },
+      { titulo: 'Análisis del Mercado: Tendencias del Precio del Crudo', contenido: 'Expertos proyectan estabilidad en los precios durante el último trimestre del año.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
+      { titulo: 'Inversión en Tecnología para Extracción Sostenible', contenido: 'Principales operadores destinan $2M para implementar tecnologías de reducción de emisiones.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
+      { titulo: 'Exportaciones de Gas Natural Superan Expectativas', contenido: 'Las exportaciones del mes de septiembre registran un crecimiento del 22% comparado con el año anterior.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
+      { titulo: 'Actualización de Protocolos de Seguridad en Plataformas', contenido: 'Nueva certificación obligatoria para todo el personal operativo en instalaciones offshore.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
     ]
   });
 }

@@ -108,6 +108,15 @@ CREATE TABLE "Fluido" (
     "comentario" TEXT
 );
 
+-- CreateTable
+CREATE TABLE "Noticias" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "titulo" TEXT NOT NULL,
+    "contenido" TEXT NOT NULL,
+    "imagenUrl" TEXT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Empresa_nombreEmpresa_key" ON "Empresa"("nombreEmpresa");
 

@@ -928,6 +928,18 @@ async function main() {
 
     ]
   });
+
+  // 10. Crear Noticias
+  await prisma.noticia.createMany({
+    data: [
+      { titulo: 'Producción de Petróleo Alcanza Nuevo Récord Trimestral', fecha: new Date(), contenido: 'Los datos del tercer trimestre muestran un incremento del 15% en la producción nacional.' },
+      { titulo: 'Nuevas Regulaciones Ambientales para Exploraciones', fecha: new Date(), contenido: 'El gobierno anuncia normativas más estrictas para proyectos de exploración offshore.' },
+      { titulo: 'Análisis del Mercado: Tendencias del Precio del Crudo', fecha: new Date(), contenido: 'Expertos proyectan estabilidad en los precios durante el último trimestre del año.' },
+      { titulo: 'Inversión en Tecnología para Extracción Sostenible', fecha: new Date(), contenido: 'Principales operadores destinan $2M para implementar tecnologías de reducción de emisiones.' },
+      { titulo: 'Exportaciones de Gas Natural Superan Expectativas', fecha: new Date(), contenido: 'Las exportaciones del mes de septiembre registran un crecimiento del 22% comparado con el año anterior.' },
+      { titulo: 'Actualización de Protocolos de Seguridad en Plataformas', fecha: new Date(), contenido: 'Nueva certificación obligatoria para todo el personal operativo en instalaciones offshore.' },
+    ]
+  });
 }
 
 main()

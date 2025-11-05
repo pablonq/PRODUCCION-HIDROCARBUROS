@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import HeroSection from "@/components/HeroSection";
 import NewsCard from "@/components/NewsCards";
@@ -66,9 +66,9 @@ export default async function HomePage() {
     { id: 'REGULATION', label: 'Regulación' }
   ];
 
-  const filteredNews = selectedCategory === 'ALL'
-    ? newsData
-    : newsData.filter(news => news.category === selectedCategory);
+  // const filteredNews = selectedCategory === 'ALL'
+  //   ? newsData
+  //   : newsData.filter(news => news.category === selectedCategory);
   // const news = await prisma.news.findMany({
   //   orderBy: { createdAt: "desc" },
   //   take: 4,
@@ -94,26 +94,13 @@ export default async function HomePage() {
     <>
       <HeroSection />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
+        {newsData.map((news) => (
+          <NewsCard key={news.id} imagen={news.imageUrl} title={news.title} date={news.date} />
+        ))}
       </div>
 
-      {/* View All Button */}
-      <div className="text-center mt-12">
-        <button className="inline-flex items-center px-8 py-3 bg-slate-800 text-white rounded-lg font-semibold hover:bg-slate-700 transition shadow-lg hover:shadow-xl">
-          Ver todas las noticias
-          <ChevronRight size={20} className="ml-2" />
-        </button>
-      </div>
+ 
     
-    {/* <div className="text-8xl text-green-950">HomePage</div>
-      <div style={{ padding: "2rem" }}>
-        <h1>Subir archivo Excel</h1>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <input type="file" name="file" accept=".xlsx, .xls" required />
-          <button type="submit">Subir</button>
-        </form>
-        {message && <p>{message}</p>}
-      </div> * */}
     </>
   );
 }

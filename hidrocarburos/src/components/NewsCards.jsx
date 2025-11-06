@@ -2,10 +2,7 @@
 import { Calendar, ArrowRight } from "lucide-react";
 export default function NewsCard({ imagen, title, date }) {
   return (
-    <div
-      
-      className="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-all duration-300 group cursor-pointer border border-slate-100"
-    >
+    <div className="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-all duration-300 group cursor-pointer border border-slate-100"    >
       {/* Image */}
       <div className="relative h-48 overflow-hidden bg-slate-200">
         <img

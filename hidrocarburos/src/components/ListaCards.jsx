@@ -1,10 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import NewsCard from "./NewsCards";
- 
-
-
-// import ButtonPaginacion from "../ButtonPaginacion/ButtonPaginacion";
+import ButtonPaginacion from "./ButtonPaginacion/ButtonPaginacion";
 
 const ListaCard = () => {
   const [newsData, setNewsData] = useState([]);
@@ -12,26 +9,27 @@ const ListaCard = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const cardsPorPagina = 9;
 
-
   async function getNoticias() {
-    const res = await fetch("/api/noticias");
-    const data = await res.json();
+    try {
+      const res = await fetch("/api/noticias");
+      const data = await res.json();
+      console.log(data);
 
-
-    if (res.ok) {
-      setNewsData(data);
+      if (res.ok) {
+        setNewsData(data);
+      } else {
+        console.error("Error fetching noticias:", data);
+        setNewsData([]);
+      }
+    } catch (error) {
+      console.error("Error al obtener noticias:", error);
+      setNewsData([]);
     }
   }
 
-
   useEffect(() => {
     getNoticias();
-
   }, []);
-
-  // const handleView = (restauranteId) => {
-  //   navigate(`detalleRestaurante/${restauranteId}`); 
-  // };
 
   const indexUltimaCards = paginaActual * cardsPorPagina;
   const indexPrimerCards = indexUltimaCards - cardsPorPagina;
@@ -40,24 +38,31 @@ const ListaCard = () => {
   const paginate = (pageNumber) => {
     setPaginaActual(pageNumber);
   };
+
   return (
     <>
-      <div className="flex flex-wrap  justify-center ">
+      <div className="flex flex-wrap justify-center ">
         {newsData.length === 0 ? (
           <p className="text-center font-bold text-rose-700">
             No hay Noticias disponibles.
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {newsData.map((cards) => (
-          <NewsCard key={cards.id} imagen={cards.imageUrl} title={cards.title} date={cards.date} />
-        ))}
-      </div>
+            {cardsActuales.map((card) => (
+                
+              <NewsCard
+                key={card.id}
+                imagen={card.imagenUrl}
+                title={card.titulo}
+                date={card.createdAt.slice(0, 10)}
+              />
+            ))}
+          </div>
         )}
-        
       </div>
+
       {/* Paginación */}
-      <div className=" flex justify-end">
+      <div className="flex justify-end">
         <div className="flex mt-4">
           {Array.from(
             { length: Math.ceil(newsData.length / cardsPorPagina) },
@@ -72,7 +77,6 @@ const ListaCard = () => {
           )}
         </div>
       </div>
-
     </>
   );
 };

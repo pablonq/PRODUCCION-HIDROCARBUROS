@@ -1,4 +1,4 @@
-"use client";
+
 import PozoGasRecurso from "@/components/graficas/PozoGasRecurso";
 import PozoOilRecurso from "@/components/graficas/PozoOilRecurso";
 import PozosSistema from "@/components/graficas/PozosSistema";
@@ -6,10 +6,10 @@ import PozosSistema from "@/components/graficas/PozosSistema";
 
 
 
-// export const metadata = {
-//   title: "Cuenca Neuquina - Pozos",
-//   description: "Gestión de pozos de hidrocarburos en la Cuenca Neuquina",
-// };
+export const metadata = {
+  title: "Pozos - Cuenca Neuquina",
+  description: "Gestión de pozos de hidrocarburos en la Cuenca Neuquina",
+};
 
 export default function Pozos() {
   

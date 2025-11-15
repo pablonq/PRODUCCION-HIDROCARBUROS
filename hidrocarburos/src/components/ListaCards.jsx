@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import NewsCard from "./NewsCards";
 import ButtonPaginacion from "./ButtonPaginacion/ButtonPaginacion";
@@ -49,7 +49,7 @@ const ListaCard = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cardsActuales.map((card) => (
-                
+
               <NewsCard
                 key={card.id}
                 imagen={card.imagenUrl}

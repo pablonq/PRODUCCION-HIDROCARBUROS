@@ -1,4 +1,4 @@
-
+"use client";
 import {useEffect} from "react";
 import ReactECharts from "echarts-for-react";
 import React, { useState } from "react";

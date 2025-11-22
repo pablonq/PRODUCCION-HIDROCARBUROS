@@ -55,24 +55,22 @@ model PozoRecurso {
 }
 
 model Sistema {
-  id            Int     @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   nombreSistema String
-  sigla    String
+  sigla         String
   pozos         PozoSistema[]
-  
 
   @@index([nombreSistema]) // Índice para búsquedas rápidas por nombre de sistema
 }
 
 model PozoSistema {
-  id            Int         @id @default(autoincrement())
+  id            Int     @id @default(autoincrement())
   cantidad      Int
   mes           Int?
   anio          Int
   observaciones String?
-  sistemaId Int
-  sistema   Sistema @relation(fields: [sistemaId], references: [id])
-  
+  sistemaId     Int
+  sistema       Sistema @relation(fields: [sistemaId], references: [id])
 
   @@index([sistemaId]) // Índice para buscar pozos por tipo de recurso
 }
@@ -146,5 +144,5 @@ model Noticias {
   titulo    String
   contenido String
   imagenUrl String?
-  createdAt  DateTime @default(now())
+  createdAt DateTime @default(now())
 }

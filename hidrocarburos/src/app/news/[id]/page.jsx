@@ -6,13 +6,15 @@ async function GetNews(id) {
 
 export default async function NewsPage({ params }) {
 
-  const news = await GetNews(params.id);
   console.log(params.id);
+  const id = params.id;
+  const news = await GetNews(id);
+  console.log(news);
 
 
   return (
     <div>
-      <h1>Noticia ID: {news.id}</h1>
+      <h1>Noticia ID: </h1>
       {/* Renderiza los detalles de la noticia aquí */}
     </div>
   );

@@ -114,7 +114,18 @@ CREATE TABLE "Noticias" (
     "titulo" TEXT NOT NULL,
     "contenido" TEXT NOT NULL,
     "imagenUrl" TEXT,
+    "fuente" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "Comentario" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "autor" TEXT NOT NULL,
+    "contenido" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "noticiaId" INTEGER NOT NULL,
+    CONSTRAINT "Comentario_noticiaId_fkey" FOREIGN KEY ("noticiaId") REFERENCES "Noticias" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

@@ -146,5 +146,16 @@ model Noticias {
   titulo    String
   contenido String
   imagenUrl String?
+  fuente    String?
   createdAt  DateTime @default(now())
+  comentarios Comentario[]
+}
+
+model Comentario {
+  id        Int      @id @default(autoincrement())
+  autor     String
+  contenido String
+  createdAt DateTime @default(now())
+  noticiaId  Int
+  noticia    Noticias @relation(fields: [noticiaId], references: [id])
 }

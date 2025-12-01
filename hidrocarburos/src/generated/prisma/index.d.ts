@@ -73,6 +73,11 @@ export type Fluido = $Result.DefaultSelection<Prisma.$FluidoPayload>
  * 
  */
 export type Noticias = $Result.DefaultSelection<Prisma.$NoticiasPayload>
+/**
+ * Model Comentario
+ * 
+ */
+export type Comentario = $Result.DefaultSelection<Prisma.$ComentarioPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -316,6 +321,16 @@ export class PrismaClient<
     * ```
     */
   get noticias(): Prisma.NoticiasDelegate<ExtArgs>;
+
+  /**
+   * `prisma.comentario`: Exposes CRUD operations for the **Comentario** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Comentarios
+    * const comentarios = await prisma.comentario.findMany()
+    * ```
+    */
+  get comentario(): Prisma.ComentarioDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -768,7 +783,8 @@ export namespace Prisma {
     ProduccionArea: 'ProduccionArea',
     TipoRecurso: 'TipoRecurso',
     Fluido: 'Fluido',
-    Noticias: 'Noticias'
+    Noticias: 'Noticias',
+    Comentario: 'Comentario'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -784,7 +800,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "empresa" | "area" | "cuenca" | "pozoRecurso" | "sistema" | "pozoSistema" | "produccionEmpresa" | "produccionRecurso" | "produccionArea" | "tipoRecurso" | "fluido" | "noticias"
+      modelProps: "empresa" | "area" | "cuenca" | "pozoRecurso" | "sistema" | "pozoSistema" | "produccionEmpresa" | "produccionRecurso" | "produccionArea" | "tipoRecurso" | "fluido" | "noticias" | "comentario"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1628,6 +1644,76 @@ export namespace Prisma {
           }
         }
       }
+      Comentario: {
+        payload: Prisma.$ComentarioPayload<ExtArgs>
+        fields: Prisma.ComentarioFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ComentarioFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ComentarioFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>
+          }
+          findFirst: {
+            args: Prisma.ComentarioFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ComentarioFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>
+          }
+          findMany: {
+            args: Prisma.ComentarioFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>[]
+          }
+          create: {
+            args: Prisma.ComentarioCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>
+          }
+          createMany: {
+            args: Prisma.ComentarioCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ComentarioCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>[]
+          }
+          delete: {
+            args: Prisma.ComentarioDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>
+          }
+          update: {
+            args: Prisma.ComentarioUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>
+          }
+          deleteMany: {
+            args: Prisma.ComentarioDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ComentarioUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ComentarioUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComentarioPayload>
+          }
+          aggregate: {
+            args: Prisma.ComentarioAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComentario>
+          }
+          groupBy: {
+            args: Prisma.ComentarioGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ComentarioGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ComentarioCountArgs<ExtArgs>
+            result: $Utils.Optional<ComentarioCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2012,6 +2098,37 @@ export namespace Prisma {
    */
   export type FluidoCountOutputTypeCountPozosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PozoRecursoWhereInput
+  }
+
+
+  /**
+   * Count Type NoticiasCountOutputType
+   */
+
+  export type NoticiasCountOutputType = {
+    comentarios: number
+  }
+
+  export type NoticiasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comentarios?: boolean | NoticiasCountOutputTypeCountComentariosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NoticiasCountOutputType without action
+   */
+  export type NoticiasCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NoticiasCountOutputType
+     */
+    select?: NoticiasCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NoticiasCountOutputType without action
+   */
+  export type NoticiasCountOutputTypeCountComentariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComentarioWhereInput
   }
 
 
@@ -13014,6 +13131,7 @@ export namespace Prisma {
     titulo: string | null
     contenido: string | null
     imagenUrl: string | null
+    fuente: string | null
     createdAt: Date | null
   }
 
@@ -13022,6 +13140,7 @@ export namespace Prisma {
     titulo: string | null
     contenido: string | null
     imagenUrl: string | null
+    fuente: string | null
     createdAt: Date | null
   }
 
@@ -13030,6 +13149,7 @@ export namespace Prisma {
     titulo: number
     contenido: number
     imagenUrl: number
+    fuente: number
     createdAt: number
     _all: number
   }
@@ -13048,6 +13168,7 @@ export namespace Prisma {
     titulo?: true
     contenido?: true
     imagenUrl?: true
+    fuente?: true
     createdAt?: true
   }
 
@@ -13056,6 +13177,7 @@ export namespace Prisma {
     titulo?: true
     contenido?: true
     imagenUrl?: true
+    fuente?: true
     createdAt?: true
   }
 
@@ -13064,6 +13186,7 @@ export namespace Prisma {
     titulo?: true
     contenido?: true
     imagenUrl?: true
+    fuente?: true
     createdAt?: true
     _all?: true
   }
@@ -13159,6 +13282,7 @@ export namespace Prisma {
     titulo: string
     contenido: string
     imagenUrl: string | null
+    fuente: string | null
     createdAt: Date
     _count: NoticiasCountAggregateOutputType | null
     _avg: NoticiasAvgAggregateOutputType | null
@@ -13186,7 +13310,10 @@ export namespace Prisma {
     titulo?: boolean
     contenido?: boolean
     imagenUrl?: boolean
+    fuente?: boolean
     createdAt?: boolean
+    comentarios?: boolean | Noticias$comentariosArgs<ExtArgs>
+    _count?: boolean | NoticiasCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["noticias"]>
 
   export type NoticiasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13194,6 +13321,7 @@ export namespace Prisma {
     titulo?: boolean
     contenido?: boolean
     imagenUrl?: boolean
+    fuente?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["noticias"]>
 
@@ -13202,18 +13330,27 @@ export namespace Prisma {
     titulo?: boolean
     contenido?: boolean
     imagenUrl?: boolean
+    fuente?: boolean
     createdAt?: boolean
   }
 
+  export type NoticiasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comentarios?: boolean | Noticias$comentariosArgs<ExtArgs>
+    _count?: boolean | NoticiasCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type NoticiasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $NoticiasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Noticias"
-    objects: {}
+    objects: {
+      comentarios: Prisma.$ComentarioPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       titulo: string
       contenido: string
       imagenUrl: string | null
+      fuente: string | null
       createdAt: Date
     }, ExtArgs["result"]["noticias"]>
     composites: {}
@@ -13579,6 +13716,7 @@ export namespace Prisma {
    */
   export interface Prisma__NoticiasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    comentarios<T extends Noticias$comentariosArgs<ExtArgs> = {}>(args?: Subset<T, Noticias$comentariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13612,6 +13750,7 @@ export namespace Prisma {
     readonly titulo: FieldRef<"Noticias", 'String'>
     readonly contenido: FieldRef<"Noticias", 'String'>
     readonly imagenUrl: FieldRef<"Noticias", 'String'>
+    readonly fuente: FieldRef<"Noticias", 'String'>
     readonly createdAt: FieldRef<"Noticias", 'DateTime'>
   }
     
@@ -13625,6 +13764,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Noticias
      */
     select?: NoticiasSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
     /**
      * Filter, which Noticias to fetch.
      */
@@ -13640,6 +13783,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * Filter, which Noticias to fetch.
      */
     where: NoticiasWhereUniqueInput
@@ -13653,6 +13800,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Noticias
      */
     select?: NoticiasSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
     /**
      * Filter, which Noticias to fetch.
      */
@@ -13698,6 +13849,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * Filter, which Noticias to fetch.
      */
     where?: NoticiasWhereInput
@@ -13742,6 +13897,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * Filter, which Noticias to fetch.
      */
     where?: NoticiasWhereInput
@@ -13781,6 +13940,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * The data needed to create a Noticias.
      */
     data: XOR<NoticiasCreateInput, NoticiasUncheckedCreateInput>
@@ -13819,6 +13982,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * The data needed to update a Noticias.
      */
     data: XOR<NoticiasUpdateInput, NoticiasUncheckedUpdateInput>
@@ -13851,6 +14018,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * The filter to search for the Noticias to update in case it exists.
      */
     where: NoticiasWhereUniqueInput
@@ -13873,6 +14044,10 @@ export namespace Prisma {
      */
     select?: NoticiasSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+    /**
      * Filter which Noticias to delete.
      */
     where: NoticiasWhereUniqueInput
@@ -13889,6 +14064,26 @@ export namespace Prisma {
   }
 
   /**
+   * Noticias.comentarios
+   */
+  export type Noticias$comentariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    where?: ComentarioWhereInput
+    orderBy?: ComentarioOrderByWithRelationInput | ComentarioOrderByWithRelationInput[]
+    cursor?: ComentarioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComentarioScalarFieldEnum | ComentarioScalarFieldEnum[]
+  }
+
+  /**
    * Noticias without action
    */
   export type NoticiasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13896,6 +14091,979 @@ export namespace Prisma {
      * Select specific fields to fetch from the Noticias
      */
     select?: NoticiasSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoticiasInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Comentario
+   */
+
+  export type AggregateComentario = {
+    _count: ComentarioCountAggregateOutputType | null
+    _avg: ComentarioAvgAggregateOutputType | null
+    _sum: ComentarioSumAggregateOutputType | null
+    _min: ComentarioMinAggregateOutputType | null
+    _max: ComentarioMaxAggregateOutputType | null
+  }
+
+  export type ComentarioAvgAggregateOutputType = {
+    id: number | null
+    noticiaId: number | null
+  }
+
+  export type ComentarioSumAggregateOutputType = {
+    id: number | null
+    noticiaId: number | null
+  }
+
+  export type ComentarioMinAggregateOutputType = {
+    id: number | null
+    autor: string | null
+    contenido: string | null
+    createdAt: Date | null
+    noticiaId: number | null
+  }
+
+  export type ComentarioMaxAggregateOutputType = {
+    id: number | null
+    autor: string | null
+    contenido: string | null
+    createdAt: Date | null
+    noticiaId: number | null
+  }
+
+  export type ComentarioCountAggregateOutputType = {
+    id: number
+    autor: number
+    contenido: number
+    createdAt: number
+    noticiaId: number
+    _all: number
+  }
+
+
+  export type ComentarioAvgAggregateInputType = {
+    id?: true
+    noticiaId?: true
+  }
+
+  export type ComentarioSumAggregateInputType = {
+    id?: true
+    noticiaId?: true
+  }
+
+  export type ComentarioMinAggregateInputType = {
+    id?: true
+    autor?: true
+    contenido?: true
+    createdAt?: true
+    noticiaId?: true
+  }
+
+  export type ComentarioMaxAggregateInputType = {
+    id?: true
+    autor?: true
+    contenido?: true
+    createdAt?: true
+    noticiaId?: true
+  }
+
+  export type ComentarioCountAggregateInputType = {
+    id?: true
+    autor?: true
+    contenido?: true
+    createdAt?: true
+    noticiaId?: true
+    _all?: true
+  }
+
+  export type ComentarioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comentario to aggregate.
+     */
+    where?: ComentarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comentarios to fetch.
+     */
+    orderBy?: ComentarioOrderByWithRelationInput | ComentarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ComentarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comentarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comentarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Comentarios
+    **/
+    _count?: true | ComentarioCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ComentarioAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ComentarioSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ComentarioMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ComentarioMaxAggregateInputType
+  }
+
+  export type GetComentarioAggregateType<T extends ComentarioAggregateArgs> = {
+        [P in keyof T & keyof AggregateComentario]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComentario[P]>
+      : GetScalarType<T[P], AggregateComentario[P]>
+  }
+
+
+
+
+  export type ComentarioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComentarioWhereInput
+    orderBy?: ComentarioOrderByWithAggregationInput | ComentarioOrderByWithAggregationInput[]
+    by: ComentarioScalarFieldEnum[] | ComentarioScalarFieldEnum
+    having?: ComentarioScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ComentarioCountAggregateInputType | true
+    _avg?: ComentarioAvgAggregateInputType
+    _sum?: ComentarioSumAggregateInputType
+    _min?: ComentarioMinAggregateInputType
+    _max?: ComentarioMaxAggregateInputType
+  }
+
+  export type ComentarioGroupByOutputType = {
+    id: number
+    autor: string
+    contenido: string
+    createdAt: Date
+    noticiaId: number
+    _count: ComentarioCountAggregateOutputType | null
+    _avg: ComentarioAvgAggregateOutputType | null
+    _sum: ComentarioSumAggregateOutputType | null
+    _min: ComentarioMinAggregateOutputType | null
+    _max: ComentarioMaxAggregateOutputType | null
+  }
+
+  type GetComentarioGroupByPayload<T extends ComentarioGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ComentarioGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ComentarioGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ComentarioGroupByOutputType[P]>
+            : GetScalarType<T[P], ComentarioGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ComentarioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    autor?: boolean
+    contenido?: boolean
+    createdAt?: boolean
+    noticiaId?: boolean
+    noticia?: boolean | NoticiasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comentario"]>
+
+  export type ComentarioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    autor?: boolean
+    contenido?: boolean
+    createdAt?: boolean
+    noticiaId?: boolean
+    noticia?: boolean | NoticiasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comentario"]>
+
+  export type ComentarioSelectScalar = {
+    id?: boolean
+    autor?: boolean
+    contenido?: boolean
+    createdAt?: boolean
+    noticiaId?: boolean
+  }
+
+  export type ComentarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    noticia?: boolean | NoticiasDefaultArgs<ExtArgs>
+  }
+  export type ComentarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    noticia?: boolean | NoticiasDefaultArgs<ExtArgs>
+  }
+
+  export type $ComentarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Comentario"
+    objects: {
+      noticia: Prisma.$NoticiasPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      autor: string
+      contenido: string
+      createdAt: Date
+      noticiaId: number
+    }, ExtArgs["result"]["comentario"]>
+    composites: {}
+  }
+
+  type ComentarioGetPayload<S extends boolean | null | undefined | ComentarioDefaultArgs> = $Result.GetResult<Prisma.$ComentarioPayload, S>
+
+  type ComentarioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ComentarioFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ComentarioCountAggregateInputType | true
+    }
+
+  export interface ComentarioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Comentario'], meta: { name: 'Comentario' } }
+    /**
+     * Find zero or one Comentario that matches the filter.
+     * @param {ComentarioFindUniqueArgs} args - Arguments to find a Comentario
+     * @example
+     * // Get one Comentario
+     * const comentario = await prisma.comentario.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ComentarioFindUniqueArgs>(args: SelectSubset<T, ComentarioFindUniqueArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Comentario that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ComentarioFindUniqueOrThrowArgs} args - Arguments to find a Comentario
+     * @example
+     * // Get one Comentario
+     * const comentario = await prisma.comentario.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ComentarioFindUniqueOrThrowArgs>(args: SelectSubset<T, ComentarioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Comentario that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioFindFirstArgs} args - Arguments to find a Comentario
+     * @example
+     * // Get one Comentario
+     * const comentario = await prisma.comentario.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ComentarioFindFirstArgs>(args?: SelectSubset<T, ComentarioFindFirstArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Comentario that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioFindFirstOrThrowArgs} args - Arguments to find a Comentario
+     * @example
+     * // Get one Comentario
+     * const comentario = await prisma.comentario.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ComentarioFindFirstOrThrowArgs>(args?: SelectSubset<T, ComentarioFindFirstOrThrowArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Comentarios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Comentarios
+     * const comentarios = await prisma.comentario.findMany()
+     * 
+     * // Get first 10 Comentarios
+     * const comentarios = await prisma.comentario.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const comentarioWithIdOnly = await prisma.comentario.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ComentarioFindManyArgs>(args?: SelectSubset<T, ComentarioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Comentario.
+     * @param {ComentarioCreateArgs} args - Arguments to create a Comentario.
+     * @example
+     * // Create one Comentario
+     * const Comentario = await prisma.comentario.create({
+     *   data: {
+     *     // ... data to create a Comentario
+     *   }
+     * })
+     * 
+     */
+    create<T extends ComentarioCreateArgs>(args: SelectSubset<T, ComentarioCreateArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Comentarios.
+     * @param {ComentarioCreateManyArgs} args - Arguments to create many Comentarios.
+     * @example
+     * // Create many Comentarios
+     * const comentario = await prisma.comentario.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ComentarioCreateManyArgs>(args?: SelectSubset<T, ComentarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Comentarios and returns the data saved in the database.
+     * @param {ComentarioCreateManyAndReturnArgs} args - Arguments to create many Comentarios.
+     * @example
+     * // Create many Comentarios
+     * const comentario = await prisma.comentario.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Comentarios and only return the `id`
+     * const comentarioWithIdOnly = await prisma.comentario.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ComentarioCreateManyAndReturnArgs>(args?: SelectSubset<T, ComentarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Comentario.
+     * @param {ComentarioDeleteArgs} args - Arguments to delete one Comentario.
+     * @example
+     * // Delete one Comentario
+     * const Comentario = await prisma.comentario.delete({
+     *   where: {
+     *     // ... filter to delete one Comentario
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ComentarioDeleteArgs>(args: SelectSubset<T, ComentarioDeleteArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Comentario.
+     * @param {ComentarioUpdateArgs} args - Arguments to update one Comentario.
+     * @example
+     * // Update one Comentario
+     * const comentario = await prisma.comentario.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ComentarioUpdateArgs>(args: SelectSubset<T, ComentarioUpdateArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Comentarios.
+     * @param {ComentarioDeleteManyArgs} args - Arguments to filter Comentarios to delete.
+     * @example
+     * // Delete a few Comentarios
+     * const { count } = await prisma.comentario.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ComentarioDeleteManyArgs>(args?: SelectSubset<T, ComentarioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comentarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Comentarios
+     * const comentario = await prisma.comentario.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ComentarioUpdateManyArgs>(args: SelectSubset<T, ComentarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Comentario.
+     * @param {ComentarioUpsertArgs} args - Arguments to update or create a Comentario.
+     * @example
+     * // Update or create a Comentario
+     * const comentario = await prisma.comentario.upsert({
+     *   create: {
+     *     // ... data to create a Comentario
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Comentario we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ComentarioUpsertArgs>(args: SelectSubset<T, ComentarioUpsertArgs<ExtArgs>>): Prisma__ComentarioClient<$Result.GetResult<Prisma.$ComentarioPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Comentarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioCountArgs} args - Arguments to filter Comentarios to count.
+     * @example
+     * // Count the number of Comentarios
+     * const count = await prisma.comentario.count({
+     *   where: {
+     *     // ... the filter for the Comentarios we want to count
+     *   }
+     * })
+    **/
+    count<T extends ComentarioCountArgs>(
+      args?: Subset<T, ComentarioCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ComentarioCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Comentario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ComentarioAggregateArgs>(args: Subset<T, ComentarioAggregateArgs>): Prisma.PrismaPromise<GetComentarioAggregateType<T>>
+
+    /**
+     * Group by Comentario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComentarioGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ComentarioGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ComentarioGroupByArgs['orderBy'] }
+        : { orderBy?: ComentarioGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ComentarioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetComentarioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Comentario model
+   */
+  readonly fields: ComentarioFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Comentario.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ComentarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    noticia<T extends NoticiasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NoticiasDefaultArgs<ExtArgs>>): Prisma__NoticiasClient<$Result.GetResult<Prisma.$NoticiasPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Comentario model
+   */ 
+  interface ComentarioFieldRefs {
+    readonly id: FieldRef<"Comentario", 'Int'>
+    readonly autor: FieldRef<"Comentario", 'String'>
+    readonly contenido: FieldRef<"Comentario", 'String'>
+    readonly createdAt: FieldRef<"Comentario", 'DateTime'>
+    readonly noticiaId: FieldRef<"Comentario", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Comentario findUnique
+   */
+  export type ComentarioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Comentario to fetch.
+     */
+    where: ComentarioWhereUniqueInput
+  }
+
+  /**
+   * Comentario findUniqueOrThrow
+   */
+  export type ComentarioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Comentario to fetch.
+     */
+    where: ComentarioWhereUniqueInput
+  }
+
+  /**
+   * Comentario findFirst
+   */
+  export type ComentarioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Comentario to fetch.
+     */
+    where?: ComentarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comentarios to fetch.
+     */
+    orderBy?: ComentarioOrderByWithRelationInput | ComentarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comentarios.
+     */
+    cursor?: ComentarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comentarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comentarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comentarios.
+     */
+    distinct?: ComentarioScalarFieldEnum | ComentarioScalarFieldEnum[]
+  }
+
+  /**
+   * Comentario findFirstOrThrow
+   */
+  export type ComentarioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Comentario to fetch.
+     */
+    where?: ComentarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comentarios to fetch.
+     */
+    orderBy?: ComentarioOrderByWithRelationInput | ComentarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comentarios.
+     */
+    cursor?: ComentarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comentarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comentarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comentarios.
+     */
+    distinct?: ComentarioScalarFieldEnum | ComentarioScalarFieldEnum[]
+  }
+
+  /**
+   * Comentario findMany
+   */
+  export type ComentarioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * Filter, which Comentarios to fetch.
+     */
+    where?: ComentarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comentarios to fetch.
+     */
+    orderBy?: ComentarioOrderByWithRelationInput | ComentarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Comentarios.
+     */
+    cursor?: ComentarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comentarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comentarios.
+     */
+    skip?: number
+    distinct?: ComentarioScalarFieldEnum | ComentarioScalarFieldEnum[]
+  }
+
+  /**
+   * Comentario create
+   */
+  export type ComentarioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Comentario.
+     */
+    data: XOR<ComentarioCreateInput, ComentarioUncheckedCreateInput>
+  }
+
+  /**
+   * Comentario createMany
+   */
+  export type ComentarioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Comentarios.
+     */
+    data: ComentarioCreateManyInput | ComentarioCreateManyInput[]
+  }
+
+  /**
+   * Comentario createManyAndReturn
+   */
+  export type ComentarioCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Comentarios.
+     */
+    data: ComentarioCreateManyInput | ComentarioCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comentario update
+   */
+  export type ComentarioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Comentario.
+     */
+    data: XOR<ComentarioUpdateInput, ComentarioUncheckedUpdateInput>
+    /**
+     * Choose, which Comentario to update.
+     */
+    where: ComentarioWhereUniqueInput
+  }
+
+  /**
+   * Comentario updateMany
+   */
+  export type ComentarioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Comentarios.
+     */
+    data: XOR<ComentarioUpdateManyMutationInput, ComentarioUncheckedUpdateManyInput>
+    /**
+     * Filter which Comentarios to update
+     */
+    where?: ComentarioWhereInput
+  }
+
+  /**
+   * Comentario upsert
+   */
+  export type ComentarioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Comentario to update in case it exists.
+     */
+    where: ComentarioWhereUniqueInput
+    /**
+     * In case the Comentario found by the `where` argument doesn't exist, create a new Comentario with this data.
+     */
+    create: XOR<ComentarioCreateInput, ComentarioUncheckedCreateInput>
+    /**
+     * In case the Comentario was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ComentarioUpdateInput, ComentarioUncheckedUpdateInput>
+  }
+
+  /**
+   * Comentario delete
+   */
+  export type ComentarioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
+    /**
+     * Filter which Comentario to delete.
+     */
+    where: ComentarioWhereUniqueInput
+  }
+
+  /**
+   * Comentario deleteMany
+   */
+  export type ComentarioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comentarios to delete
+     */
+    where?: ComentarioWhereInput
+  }
+
+  /**
+   * Comentario without action
+   */
+  export type ComentarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comentario
+     */
+    select?: ComentarioSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComentarioInclude<ExtArgs> | null
   }
 
 
@@ -14036,10 +15204,22 @@ export namespace Prisma {
     titulo: 'titulo',
     contenido: 'contenido',
     imagenUrl: 'imagenUrl',
+    fuente: 'fuente',
     createdAt: 'createdAt'
   };
 
   export type NoticiasScalarFieldEnum = (typeof NoticiasScalarFieldEnum)[keyof typeof NoticiasScalarFieldEnum]
+
+
+  export const ComentarioScalarFieldEnum: {
+    id: 'id',
+    autor: 'autor',
+    contenido: 'contenido',
+    createdAt: 'createdAt',
+    noticiaId: 'noticiaId'
+  };
+
+  export type ComentarioScalarFieldEnum = (typeof ComentarioScalarFieldEnum)[keyof typeof ComentarioScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14762,7 +15942,9 @@ export namespace Prisma {
     titulo?: StringFilter<"Noticias"> | string
     contenido?: StringFilter<"Noticias"> | string
     imagenUrl?: StringNullableFilter<"Noticias"> | string | null
+    fuente?: StringNullableFilter<"Noticias"> | string | null
     createdAt?: DateTimeFilter<"Noticias"> | Date | string
+    comentarios?: ComentarioListRelationFilter
   }
 
   export type NoticiasOrderByWithRelationInput = {
@@ -14770,7 +15952,9 @@ export namespace Prisma {
     titulo?: SortOrder
     contenido?: SortOrder
     imagenUrl?: SortOrderInput | SortOrder
+    fuente?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    comentarios?: ComentarioOrderByRelationAggregateInput
   }
 
   export type NoticiasWhereUniqueInput = Prisma.AtLeast<{
@@ -14781,7 +15965,9 @@ export namespace Prisma {
     titulo?: StringFilter<"Noticias"> | string
     contenido?: StringFilter<"Noticias"> | string
     imagenUrl?: StringNullableFilter<"Noticias"> | string | null
+    fuente?: StringNullableFilter<"Noticias"> | string | null
     createdAt?: DateTimeFilter<"Noticias"> | Date | string
+    comentarios?: ComentarioListRelationFilter
   }, "id">
 
   export type NoticiasOrderByWithAggregationInput = {
@@ -14789,6 +15975,7 @@ export namespace Prisma {
     titulo?: SortOrder
     contenido?: SortOrder
     imagenUrl?: SortOrderInput | SortOrder
+    fuente?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: NoticiasCountOrderByAggregateInput
     _avg?: NoticiasAvgOrderByAggregateInput
@@ -14805,7 +15992,65 @@ export namespace Prisma {
     titulo?: StringWithAggregatesFilter<"Noticias"> | string
     contenido?: StringWithAggregatesFilter<"Noticias"> | string
     imagenUrl?: StringNullableWithAggregatesFilter<"Noticias"> | string | null
+    fuente?: StringNullableWithAggregatesFilter<"Noticias"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Noticias"> | Date | string
+  }
+
+  export type ComentarioWhereInput = {
+    AND?: ComentarioWhereInput | ComentarioWhereInput[]
+    OR?: ComentarioWhereInput[]
+    NOT?: ComentarioWhereInput | ComentarioWhereInput[]
+    id?: IntFilter<"Comentario"> | number
+    autor?: StringFilter<"Comentario"> | string
+    contenido?: StringFilter<"Comentario"> | string
+    createdAt?: DateTimeFilter<"Comentario"> | Date | string
+    noticiaId?: IntFilter<"Comentario"> | number
+    noticia?: XOR<NoticiasRelationFilter, NoticiasWhereInput>
+  }
+
+  export type ComentarioOrderByWithRelationInput = {
+    id?: SortOrder
+    autor?: SortOrder
+    contenido?: SortOrder
+    createdAt?: SortOrder
+    noticiaId?: SortOrder
+    noticia?: NoticiasOrderByWithRelationInput
+  }
+
+  export type ComentarioWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ComentarioWhereInput | ComentarioWhereInput[]
+    OR?: ComentarioWhereInput[]
+    NOT?: ComentarioWhereInput | ComentarioWhereInput[]
+    autor?: StringFilter<"Comentario"> | string
+    contenido?: StringFilter<"Comentario"> | string
+    createdAt?: DateTimeFilter<"Comentario"> | Date | string
+    noticiaId?: IntFilter<"Comentario"> | number
+    noticia?: XOR<NoticiasRelationFilter, NoticiasWhereInput>
+  }, "id">
+
+  export type ComentarioOrderByWithAggregationInput = {
+    id?: SortOrder
+    autor?: SortOrder
+    contenido?: SortOrder
+    createdAt?: SortOrder
+    noticiaId?: SortOrder
+    _count?: ComentarioCountOrderByAggregateInput
+    _avg?: ComentarioAvgOrderByAggregateInput
+    _max?: ComentarioMaxOrderByAggregateInput
+    _min?: ComentarioMinOrderByAggregateInput
+    _sum?: ComentarioSumOrderByAggregateInput
+  }
+
+  export type ComentarioScalarWhereWithAggregatesInput = {
+    AND?: ComentarioScalarWhereWithAggregatesInput | ComentarioScalarWhereWithAggregatesInput[]
+    OR?: ComentarioScalarWhereWithAggregatesInput[]
+    NOT?: ComentarioScalarWhereWithAggregatesInput | ComentarioScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Comentario"> | number
+    autor?: StringWithAggregatesFilter<"Comentario"> | string
+    contenido?: StringWithAggregatesFilter<"Comentario"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Comentario"> | Date | string
+    noticiaId?: IntWithAggregatesFilter<"Comentario"> | number
   }
 
   export type EmpresaCreateInput = {
@@ -15428,7 +16673,9 @@ export namespace Prisma {
     titulo: string
     contenido: string
     imagenUrl?: string | null
+    fuente?: string | null
     createdAt?: Date | string
+    comentarios?: ComentarioCreateNestedManyWithoutNoticiaInput
   }
 
   export type NoticiasUncheckedCreateInput = {
@@ -15436,14 +16683,18 @@ export namespace Prisma {
     titulo: string
     contenido: string
     imagenUrl?: string | null
+    fuente?: string | null
     createdAt?: Date | string
+    comentarios?: ComentarioUncheckedCreateNestedManyWithoutNoticiaInput
   }
 
   export type NoticiasUpdateInput = {
     titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
     imagenUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fuente?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comentarios?: ComentarioUpdateManyWithoutNoticiaNestedInput
   }
 
   export type NoticiasUncheckedUpdateInput = {
@@ -15451,7 +16702,9 @@ export namespace Prisma {
     titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
     imagenUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fuente?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comentarios?: ComentarioUncheckedUpdateManyWithoutNoticiaNestedInput
   }
 
   export type NoticiasCreateManyInput = {
@@ -15459,6 +16712,7 @@ export namespace Prisma {
     titulo: string
     contenido: string
     imagenUrl?: string | null
+    fuente?: string | null
     createdAt?: Date | string
   }
 
@@ -15466,6 +16720,7 @@ export namespace Prisma {
     titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
     imagenUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fuente?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15474,7 +16729,60 @@ export namespace Prisma {
     titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
     imagenUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fuente?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComentarioCreateInput = {
+    autor: string
+    contenido: string
+    createdAt?: Date | string
+    noticia: NoticiasCreateNestedOneWithoutComentariosInput
+  }
+
+  export type ComentarioUncheckedCreateInput = {
+    id?: number
+    autor: string
+    contenido: string
+    createdAt?: Date | string
+    noticiaId: number
+  }
+
+  export type ComentarioUpdateInput = {
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    noticia?: NoticiasUpdateOneRequiredWithoutComentariosNestedInput
+  }
+
+  export type ComentarioUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    noticiaId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ComentarioCreateManyInput = {
+    id?: number
+    autor: string
+    contenido: string
+    createdAt?: Date | string
+    noticiaId: number
+  }
+
+  export type ComentarioUpdateManyMutationInput = {
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComentarioUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    noticiaId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -16103,11 +17411,22 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type ComentarioListRelationFilter = {
+    every?: ComentarioWhereInput
+    some?: ComentarioWhereInput
+    none?: ComentarioWhereInput
+  }
+
+  export type ComentarioOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type NoticiasCountOrderByAggregateInput = {
     id?: SortOrder
     titulo?: SortOrder
     contenido?: SortOrder
     imagenUrl?: SortOrder
+    fuente?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -16120,6 +17439,7 @@ export namespace Prisma {
     titulo?: SortOrder
     contenido?: SortOrder
     imagenUrl?: SortOrder
+    fuente?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -16128,6 +17448,7 @@ export namespace Prisma {
     titulo?: SortOrder
     contenido?: SortOrder
     imagenUrl?: SortOrder
+    fuente?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -16147,6 +17468,45 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NoticiasRelationFilter = {
+    is?: NoticiasWhereInput
+    isNot?: NoticiasWhereInput
+  }
+
+  export type ComentarioCountOrderByAggregateInput = {
+    id?: SortOrder
+    autor?: SortOrder
+    contenido?: SortOrder
+    createdAt?: SortOrder
+    noticiaId?: SortOrder
+  }
+
+  export type ComentarioAvgOrderByAggregateInput = {
+    id?: SortOrder
+    noticiaId?: SortOrder
+  }
+
+  export type ComentarioMaxOrderByAggregateInput = {
+    id?: SortOrder
+    autor?: SortOrder
+    contenido?: SortOrder
+    createdAt?: SortOrder
+    noticiaId?: SortOrder
+  }
+
+  export type ComentarioMinOrderByAggregateInput = {
+    id?: SortOrder
+    autor?: SortOrder
+    contenido?: SortOrder
+    createdAt?: SortOrder
+    noticiaId?: SortOrder
+  }
+
+  export type ComentarioSumOrderByAggregateInput = {
+    id?: SortOrder
+    noticiaId?: SortOrder
   }
 
   export type AreaCreateNestedManyWithoutEmpresaInput = {
@@ -16789,8 +18149,64 @@ export namespace Prisma {
     deleteMany?: PozoRecursoScalarWhereInput | PozoRecursoScalarWhereInput[]
   }
 
+  export type ComentarioCreateNestedManyWithoutNoticiaInput = {
+    create?: XOR<ComentarioCreateWithoutNoticiaInput, ComentarioUncheckedCreateWithoutNoticiaInput> | ComentarioCreateWithoutNoticiaInput[] | ComentarioUncheckedCreateWithoutNoticiaInput[]
+    connectOrCreate?: ComentarioCreateOrConnectWithoutNoticiaInput | ComentarioCreateOrConnectWithoutNoticiaInput[]
+    createMany?: ComentarioCreateManyNoticiaInputEnvelope
+    connect?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+  }
+
+  export type ComentarioUncheckedCreateNestedManyWithoutNoticiaInput = {
+    create?: XOR<ComentarioCreateWithoutNoticiaInput, ComentarioUncheckedCreateWithoutNoticiaInput> | ComentarioCreateWithoutNoticiaInput[] | ComentarioUncheckedCreateWithoutNoticiaInput[]
+    connectOrCreate?: ComentarioCreateOrConnectWithoutNoticiaInput | ComentarioCreateOrConnectWithoutNoticiaInput[]
+    createMany?: ComentarioCreateManyNoticiaInputEnvelope
+    connect?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type ComentarioUpdateManyWithoutNoticiaNestedInput = {
+    create?: XOR<ComentarioCreateWithoutNoticiaInput, ComentarioUncheckedCreateWithoutNoticiaInput> | ComentarioCreateWithoutNoticiaInput[] | ComentarioUncheckedCreateWithoutNoticiaInput[]
+    connectOrCreate?: ComentarioCreateOrConnectWithoutNoticiaInput | ComentarioCreateOrConnectWithoutNoticiaInput[]
+    upsert?: ComentarioUpsertWithWhereUniqueWithoutNoticiaInput | ComentarioUpsertWithWhereUniqueWithoutNoticiaInput[]
+    createMany?: ComentarioCreateManyNoticiaInputEnvelope
+    set?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    disconnect?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    delete?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    connect?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    update?: ComentarioUpdateWithWhereUniqueWithoutNoticiaInput | ComentarioUpdateWithWhereUniqueWithoutNoticiaInput[]
+    updateMany?: ComentarioUpdateManyWithWhereWithoutNoticiaInput | ComentarioUpdateManyWithWhereWithoutNoticiaInput[]
+    deleteMany?: ComentarioScalarWhereInput | ComentarioScalarWhereInput[]
+  }
+
+  export type ComentarioUncheckedUpdateManyWithoutNoticiaNestedInput = {
+    create?: XOR<ComentarioCreateWithoutNoticiaInput, ComentarioUncheckedCreateWithoutNoticiaInput> | ComentarioCreateWithoutNoticiaInput[] | ComentarioUncheckedCreateWithoutNoticiaInput[]
+    connectOrCreate?: ComentarioCreateOrConnectWithoutNoticiaInput | ComentarioCreateOrConnectWithoutNoticiaInput[]
+    upsert?: ComentarioUpsertWithWhereUniqueWithoutNoticiaInput | ComentarioUpsertWithWhereUniqueWithoutNoticiaInput[]
+    createMany?: ComentarioCreateManyNoticiaInputEnvelope
+    set?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    disconnect?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    delete?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    connect?: ComentarioWhereUniqueInput | ComentarioWhereUniqueInput[]
+    update?: ComentarioUpdateWithWhereUniqueWithoutNoticiaInput | ComentarioUpdateWithWhereUniqueWithoutNoticiaInput[]
+    updateMany?: ComentarioUpdateManyWithWhereWithoutNoticiaInput | ComentarioUpdateManyWithWhereWithoutNoticiaInput[]
+    deleteMany?: ComentarioScalarWhereInput | ComentarioScalarWhereInput[]
+  }
+
+  export type NoticiasCreateNestedOneWithoutComentariosInput = {
+    create?: XOR<NoticiasCreateWithoutComentariosInput, NoticiasUncheckedCreateWithoutComentariosInput>
+    connectOrCreate?: NoticiasCreateOrConnectWithoutComentariosInput
+    connect?: NoticiasWhereUniqueInput
+  }
+
+  export type NoticiasUpdateOneRequiredWithoutComentariosNestedInput = {
+    create?: XOR<NoticiasCreateWithoutComentariosInput, NoticiasUncheckedCreateWithoutComentariosInput>
+    connectOrCreate?: NoticiasCreateOrConnectWithoutComentariosInput
+    upsert?: NoticiasUpsertWithoutComentariosInput
+    connect?: NoticiasWhereUniqueInput
+    update?: XOR<XOR<NoticiasUpdateToOneWithWhereWithoutComentariosInput, NoticiasUpdateWithoutComentariosInput>, NoticiasUncheckedUpdateWithoutComentariosInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -17985,6 +19401,105 @@ export namespace Prisma {
     data: XOR<PozoRecursoUpdateManyMutationInput, PozoRecursoUncheckedUpdateManyWithoutFluidoInput>
   }
 
+  export type ComentarioCreateWithoutNoticiaInput = {
+    autor: string
+    contenido: string
+    createdAt?: Date | string
+  }
+
+  export type ComentarioUncheckedCreateWithoutNoticiaInput = {
+    id?: number
+    autor: string
+    contenido: string
+    createdAt?: Date | string
+  }
+
+  export type ComentarioCreateOrConnectWithoutNoticiaInput = {
+    where: ComentarioWhereUniqueInput
+    create: XOR<ComentarioCreateWithoutNoticiaInput, ComentarioUncheckedCreateWithoutNoticiaInput>
+  }
+
+  export type ComentarioCreateManyNoticiaInputEnvelope = {
+    data: ComentarioCreateManyNoticiaInput | ComentarioCreateManyNoticiaInput[]
+  }
+
+  export type ComentarioUpsertWithWhereUniqueWithoutNoticiaInput = {
+    where: ComentarioWhereUniqueInput
+    update: XOR<ComentarioUpdateWithoutNoticiaInput, ComentarioUncheckedUpdateWithoutNoticiaInput>
+    create: XOR<ComentarioCreateWithoutNoticiaInput, ComentarioUncheckedCreateWithoutNoticiaInput>
+  }
+
+  export type ComentarioUpdateWithWhereUniqueWithoutNoticiaInput = {
+    where: ComentarioWhereUniqueInput
+    data: XOR<ComentarioUpdateWithoutNoticiaInput, ComentarioUncheckedUpdateWithoutNoticiaInput>
+  }
+
+  export type ComentarioUpdateManyWithWhereWithoutNoticiaInput = {
+    where: ComentarioScalarWhereInput
+    data: XOR<ComentarioUpdateManyMutationInput, ComentarioUncheckedUpdateManyWithoutNoticiaInput>
+  }
+
+  export type ComentarioScalarWhereInput = {
+    AND?: ComentarioScalarWhereInput | ComentarioScalarWhereInput[]
+    OR?: ComentarioScalarWhereInput[]
+    NOT?: ComentarioScalarWhereInput | ComentarioScalarWhereInput[]
+    id?: IntFilter<"Comentario"> | number
+    autor?: StringFilter<"Comentario"> | string
+    contenido?: StringFilter<"Comentario"> | string
+    createdAt?: DateTimeFilter<"Comentario"> | Date | string
+    noticiaId?: IntFilter<"Comentario"> | number
+  }
+
+  export type NoticiasCreateWithoutComentariosInput = {
+    titulo: string
+    contenido: string
+    imagenUrl?: string | null
+    fuente?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NoticiasUncheckedCreateWithoutComentariosInput = {
+    id?: number
+    titulo: string
+    contenido: string
+    imagenUrl?: string | null
+    fuente?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NoticiasCreateOrConnectWithoutComentariosInput = {
+    where: NoticiasWhereUniqueInput
+    create: XOR<NoticiasCreateWithoutComentariosInput, NoticiasUncheckedCreateWithoutComentariosInput>
+  }
+
+  export type NoticiasUpsertWithoutComentariosInput = {
+    update: XOR<NoticiasUpdateWithoutComentariosInput, NoticiasUncheckedUpdateWithoutComentariosInput>
+    create: XOR<NoticiasCreateWithoutComentariosInput, NoticiasUncheckedCreateWithoutComentariosInput>
+    where?: NoticiasWhereInput
+  }
+
+  export type NoticiasUpdateToOneWithWhereWithoutComentariosInput = {
+    where?: NoticiasWhereInput
+    data: XOR<NoticiasUpdateWithoutComentariosInput, NoticiasUncheckedUpdateWithoutComentariosInput>
+  }
+
+  export type NoticiasUpdateWithoutComentariosInput = {
+    titulo?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    imagenUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fuente?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NoticiasUncheckedUpdateWithoutComentariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    imagenUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fuente?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AreaCreateManyEmpresaInput = {
     id?: number
     nombreArea: string
@@ -18354,6 +19869,33 @@ export namespace Prisma {
     tipoRecursoId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type ComentarioCreateManyNoticiaInput = {
+    id?: number
+    autor: string
+    contenido: string
+    createdAt?: Date | string
+  }
+
+  export type ComentarioUpdateWithoutNoticiaInput = {
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComentarioUncheckedUpdateWithoutNoticiaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComentarioUncheckedUpdateManyWithoutNoticiaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    autor?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -18383,6 +19925,10 @@ export namespace Prisma {
      * @deprecated Use FluidoCountOutputTypeDefaultArgs instead
      */
     export type FluidoCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FluidoCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NoticiasCountOutputTypeDefaultArgs instead
+     */
+    export type NoticiasCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NoticiasCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use EmpresaDefaultArgs instead
      */
@@ -18431,6 +19977,10 @@ export namespace Prisma {
      * @deprecated Use NoticiasDefaultArgs instead
      */
     export type NoticiasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NoticiasDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ComentarioDefaultArgs instead
+     */
+    export type ComentarioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ComentarioDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

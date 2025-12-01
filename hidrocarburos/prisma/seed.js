@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('../src/generated/prisma');
 const prisma = new PrismaClient();
 
 async function main() {
@@ -930,14 +930,26 @@ async function main() {
   });
 
   // 10. Crear Noticias
-  await prisma.noticias.createMany({
+  const noticias = await prisma.noticias.createMany({
     data: [
-      { titulo: 'Producción de Petróleo Alcanza Nuevo Récord Trimestral', contenido: 'Los datos del tercer trimestre muestran un incremento del 15% en la producción nacional.', imagenUrl: 'https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=800&q=80' },
-      { titulo: 'Nuevas Regulaciones Ambientales para Exploraciones', contenido: 'El gobierno anuncia normativas más estrictas para proyectos de exploración offshore.', imagenUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80' },
-      { titulo: 'Análisis del Mercado: Tendencias del Precio del Crudo', contenido: 'Expertos proyectan estabilidad en los precios durante el último trimestre del año.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
-      { titulo: 'Inversión en Tecnología para Extracción Sostenible', contenido: 'Principales operadores destinan $2M para implementar tecnologías de reducción de emisiones.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
-      { titulo: 'Exportaciones de Gas Natural Superan Expectativas', contenido: 'Las exportaciones del mes de septiembre registran un crecimiento del 22% comparado con el año anterior.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
-      { titulo: 'Actualización de Protocolos de Seguridad en Plataformas', contenido: 'Nueva certificación obligatoria para todo el personal operativo en instalaciones offshore.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80' },
+      { titulo: 'Producción de Petróleo Alcanza Nuevo Récord Trimestral', contenido: 'Los datos del tercer trimestre muestran un incremento del 15% en la producción nacional.', imagenUrl: 'https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=800&q=80', fuente: 'Agencia Energética Nacional' },
+      { titulo: 'Nuevas Regulaciones Ambientales para Exploraciones', contenido: 'El gobierno anuncia normativas más estrictas para proyectos de exploración offshore.', imagenUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80', fuente: 'Ministerio de Medio Ambiente' },
+      { titulo: 'Análisis del Mercado: Tendencias del Precio del Crudo', contenido: 'Expertos proyectan estabilidad en los precios durante el último trimestre del año.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80', fuente: 'Revista Energía Hoy' },
+      { titulo: 'Inversión en Tecnología para Extracción Sostenible', contenido: 'Principales operadores destinan $2M para implementar tecnologías de reducción de emisiones.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80', fuente: 'Informe Anual de Energía' },
+      { titulo: 'Exportaciones de Gas Natural Superan Expectativas', contenido: 'Las exportaciones del mes de septiembre registran un crecimiento del 22% comparado con el año anterior.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80', fuente: 'Comisión de Comercio Exterior' },
+      { titulo: 'Actualización de Protocolos de Seguridad en Plataformas', contenido: 'Nueva certificación obligatoria para todo el personal operativo en instalaciones offshore.', imagenUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80', fuente: 'Asociación de Seguridad Industrial' },
+    ]
+  });
+
+  // 11. Crear Comentarios
+  const comentarios = await prisma.comentario.createMany({
+    data: [
+      { autor: 'Juan Pérez', contenido: 'Excelente artículo sobre la producción de petróleo.', noticiaId: 1 },
+      { autor: 'María López', contenido: 'Las nuevas regulaciones son necesarias para proteger el medio ambiente.', noticiaId: 2 },
+      { autor: 'Carlos Gómez', contenido: 'Interesante análisis del mercado del crudo.', noticiaId: 3 },
+      { autor: 'Ana Martínez', contenido: 'La inversión en tecnología es clave para la sostenibilidad.', noticiaId: 4 },
+      { autor: 'Luis Fernández', contenido: 'Las exportaciones de gas natural están en auge.', noticiaId: 5 },
+      { autor: 'Sofía Ramírez', contenido: 'La seguridad en plataformas es fundamental para evitar accidentes.', noticiaId: 6 },
     ]
   });
 }

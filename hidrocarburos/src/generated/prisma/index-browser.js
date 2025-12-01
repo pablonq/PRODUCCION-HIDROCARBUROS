@@ -212,7 +212,16 @@ exports.Prisma.NoticiasScalarFieldEnum = {
   titulo: 'titulo',
   contenido: 'contenido',
   imagenUrl: 'imagenUrl',
+  fuente: 'fuente',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ComentarioScalarFieldEnum = {
+  id: 'id',
+  autor: 'autor',
+  contenido: 'contenido',
+  createdAt: 'createdAt',
+  noticiaId: 'noticiaId'
 };
 
 exports.Prisma.SortOrder = {
@@ -238,7 +247,8 @@ exports.Prisma.ModelName = {
   ProduccionArea: 'ProduccionArea',
   TipoRecurso: 'TipoRecurso',
   Fluido: 'Fluido',
-  Noticias: 'Noticias'
+  Noticias: 'Noticias',
+  Comentario: 'Comentario'
 };
 
 /**

@@ -140,9 +140,20 @@ model Fluido {
 }
 
 model Noticias {
+  id          Int          @id @default(autoincrement())
+  titulo      String
+  contenido   String
+  imagenUrl   String?
+  fuente      String?
+  createdAt   DateTime     @default(now())
+  comentarios Comentario[]
+}
+
+model Comentario {
   id        Int      @id @default(autoincrement())
-  titulo    String
+  autor     String
   contenido String
-  imagenUrl String?
   createdAt DateTime @default(now())
+  noticiaId Int
+  noticia   Noticias @relation(fields: [noticiaId], references: [id])
 }

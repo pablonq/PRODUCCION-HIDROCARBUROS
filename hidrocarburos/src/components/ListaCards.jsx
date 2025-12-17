@@ -15,7 +15,7 @@ const ListaCard = () => {
     try {
       const res = await fetch("/api/noticias");
       const data = await res.json();
-      console.log(data);
+      
 
       if (res.ok) {
         setNewsData(data);

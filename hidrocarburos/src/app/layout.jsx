@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import Footer from "@/components/Footer";
 
 import "./globals.css";
-
 
 export const metadata = {
   title: "Cuenca Neuquina",
@@ -11,18 +11,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html>
-
       <body className="bg-gray-100 text-gray-900 font-sans">
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          
           <Navbar />
           {children}
+          <Footer />
         </AppRouterCacheProvider>
-        
-
-        
-
       </body>
     </html>
-  )
+  );
 }

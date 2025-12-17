@@ -3,7 +3,7 @@ import { Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function NewsCard({card}) {
-  console.log(card);
+  
   return (
     <Link href={`/news/${card.id}`}>
     <div className="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-all duration-300 group cursor-pointer border border-slate-100"    >
